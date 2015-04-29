@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 
 public class PlayActivity extends AppCompatActivity {
-    private int numberOfDigits = 4;
+    private int numberOfDigits = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,21 @@ public class PlayActivity extends AppCompatActivity {
                         (NumberPicker) findViewById(R.id.digit_2),
                         (NumberPicker) findViewById(R.id.digit_3),
                         (NumberPicker) findViewById(R.id.digit_4));
+            case 5:
+                initializeNumberPickerArray(
+                        (NumberPicker) findViewById(R.id.digit_1),
+                        (NumberPicker) findViewById(R.id.digit_2),
+                        (NumberPicker) findViewById(R.id.digit_3),
+                        (NumberPicker) findViewById(R.id.digit_4),
+                        (NumberPicker) findViewById(R.id.digit_5));
+            case 6:
+                initializeNumberPickerArray(
+                        (NumberPicker) findViewById(R.id.digit_1),
+                        (NumberPicker) findViewById(R.id.digit_2),
+                        (NumberPicker) findViewById(R.id.digit_3),
+                        (NumberPicker) findViewById(R.id.digit_4),
+                        (NumberPicker) findViewById(R.id.digit_5),
+                        (NumberPicker) findViewById(R.id.digit_6));
                 break;
             default:
 
@@ -44,10 +60,14 @@ public class PlayActivity extends AppCompatActivity {
 
 
     private void initializeNumberPickerArray(NumberPicker... spinnerArray) {
+        float weight = 1.0f / numberOfDigits;
         for (final NumberPicker np : spinnerArray) {
             np.setMinValue(0);
             np.setMaxValue(9);
             np.setWrapSelectorWheel(true);
+            LinearLayout layout = (LinearLayout) findViewById(np.getId());
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(5, 500, weight);
+            layout.setLayoutParams(lp);
         }
     }
 
