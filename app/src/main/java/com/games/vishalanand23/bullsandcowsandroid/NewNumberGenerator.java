@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class NewNumberGenerator {
 
-    public long generate(int numberOfDigits) {
+    public String generate(int numberOfDigits) {
         Random random = new Random();
         int numberArray[] = new int[numberOfDigits];
         int i = 0;
@@ -26,7 +26,8 @@ public class NewNumberGenerator {
         for (int k = 0; k < numberOfDigits; k++) {
             number += ((Double) Math.pow(10, numberOfDigits - k - 1)).longValue() * numberArray[k];
         }
-        return number;
+        String toString = ((Long) number).toString();
+        return toString.length() == numberOfDigits ? toString : "0" + toString;
     }
 
     public static void main(String args[]) {

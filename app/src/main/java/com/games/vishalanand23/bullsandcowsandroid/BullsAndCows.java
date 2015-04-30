@@ -15,43 +15,32 @@ public class BullsAndCows {
         return "BullsAndCows{" + "bulls=" + bulls + ", cows=" + cows + "}";
     }
 
-    public static BullsAndCows calculate(int numberOfDigits, long first, long second) {
-        String firstString = pad(numberOfDigits, first);
-        String secondString = pad(numberOfDigits, second);
+    public static BullsAndCows calculate(String first, String second) {
         return new BullsAndCows(
-                numberOfBulls(numberOfDigits, firstString, secondString),
-                numberOfCows(numberOfDigits, firstString, secondString));
+                numberOfBulls(first, second),
+                numberOfCows(first, second));
     }
 
-    private static String pad(int numberOfDigits, long number) {
-        String numberInString = ((Long) number).toString();
-        if (numberInString.length() == numberOfDigits - 1) {
-            return "0" + numberInString;
-        } else {
-            return numberInString;
-        }
-    }
-
-    private static int numberOfCows(int numberOfDigits, String number, String guess) {
-        int cows = 0;
-        for (int i = 0; i < numberOfDigits; i++) {
+    private static int numberOfCows(String number, String guess) {
+        int cowsPlusBulls = 0;
+        for (int i = 0; i < number.length(); i++) {
             String a = guess.charAt(i) + "";
             if (number.contains(a)) {
-                cows++;
+                cowsPlusBulls++;
             }
         }
-        return cows - numberOfBulls(numberOfDigits, number, guess);
+        return cowsPlusBulls - numberOfBulls(number, guess);
     }
 
-    private static int numberOfBulls(int numberOfDigits, String number, String guess) {
+    private static int numberOfBulls(String number, String guess) {
         int bulls = 0;
-        for (int i = 0; i < numberOfDigits; i++) {
+        for (int i = 0; i < number.length(); i++) {
             if (guess.charAt(i) == number.charAt(i)) bulls++;
         }
         return bulls;
     }
 
     public static void main(String args[]) {
-        System.out.println(calculate(6, 123456L, 23765L));
+        System.out.println(calculate("123456", "023657"));
     }
 }
