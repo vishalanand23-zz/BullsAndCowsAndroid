@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 public class DigitPickerFragment extends Fragment {
-    private int numberOfDigits = 6;
+    private int numberOfDigits = 4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
