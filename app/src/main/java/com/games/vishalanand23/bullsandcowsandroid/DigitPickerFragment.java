@@ -141,6 +141,7 @@ public class DigitPickerFragment extends Fragment {
             default:
         }
         clearTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
+        initializeCurrentValueArray();
         chronometer.start();
     }
 
@@ -152,6 +153,11 @@ public class DigitPickerFragment extends Fragment {
         }
     }
 
+    private void initializeCurrentValueArray() {
+        for (int i = 0; i < currentValue.length; i++) {
+            currentValue[i] = '0';
+        }
+    }
 
     private void initializeNumberPickerArray(View view, NumberPicker... numberPickerArray) {
         float weight = 1.0f / numberOfDigits;
@@ -159,6 +165,7 @@ public class DigitPickerFragment extends Fragment {
             NumberPicker np = numberPickerArray[i];
             np.setMinValue(0);
             np.setMaxValue(9);
+            np.setValue(0);
             np.setWrapSelectorWheel(true);
             LinearLayout layout = (LinearLayout) (view.findViewById(np.getId()));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(5, 300, weight);
