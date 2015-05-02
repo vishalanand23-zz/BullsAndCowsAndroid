@@ -12,19 +12,10 @@
     android:id="@+id/play">
 
     <fragment
-        android:name="com.games.vishalanand23.bullsandcowsandroid.GuessDisplayFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_guess_display"
-        android:id="@+id/guess_display"
-        android:layout_gravity="top" />
-
-    <fragment
         android:name="com.games.vishalanand23.bullsandcowsandroid.DigitPickerFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_number_picker"
-        android:id="@+id/number_picker"
-        android:layout_gravity="bottom" />
+        android:id="@+id/number_picker" />
 
 </FrameLayout>

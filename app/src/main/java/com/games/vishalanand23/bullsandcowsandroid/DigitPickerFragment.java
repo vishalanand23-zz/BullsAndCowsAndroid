@@ -1,8 +1,10 @@
 package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class DigitPickerFragment extends Fragment {
     private int numberOfDigits = 4;
@@ -37,18 +42,19 @@ public class DigitPickerFragment extends Fragment {
         });
     }
 
-    private void initializeSubmitButton(View layout) {
+    private void initializeSubmitButton(final View layout) {
         Button submitButton = (Button) layout.findViewById(R.id.submit);
         checkDigits(submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                TableLayout table = (TableLayout) layout.findViewById(R.id.guess_display);
                 String guessedValue = new String(currentValue);
                 BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
-                displayRoundResult(guessedValue, result);
+                displayRoundResult(table, guessedValue, result);
                 if (result.bulls == numberOfDigits) {
                     chronometer.stop();
                     long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-                    displayGameResult(numberOfRounds, elapsedMillis / 1000f);
+                    displayGameResult(table, numberOfRounds, elapsedMillis / 1000f);
                 } else {
                     numberOfRounds++;
                 }
@@ -56,12 +62,39 @@ public class DigitPickerFragment extends Fragment {
         });
     }
 
-    private void displayGameResult(int numberOfRounds, float timeInSeconds) {
-        System.out.println("zzzz: " + numberOfRounds + ". Time: " + timeInSeconds);
+    private void displayGameResult(TableLayout table, int numberOfRounds, float timeInSeconds) {
+        TableRow row1 = new TableRow(table.getContext());
+        TableRow row2 = new TableRow(table.getContext());
+        TextView rounds = getTextView(table.getContext());
+        rounds.setText("Rounds: " + numberOfRounds);
+        row1.addView(rounds);
+        TextView time = getTextView(table.getContext());
+        time.setText("Time: " + timeInSeconds + " seconds");
+        row2.addView(time);
+        table.addView(row1);
+        table.addView(row2);
     }
 
-    private void displayRoundResult(String currentValue, BullsAndCows result) {
-        System.out.println("zzzz: " + currentValue + " : " + result);
+    private void displayRoundResult(TableLayout table, String currentValue, BullsAndCows result) {
+        TableRow row = new TableRow(table.getContext());
+        TextView value = getTextView(table.getContext());
+        value.setText(currentValue);
+        row.addView(value);
+
+        TextView bulls = getTextView(table.getContext());
+        bulls.setText(String.valueOf(result.bulls));
+        row.addView(bulls);
+
+        TextView cows = getTextView(table.getContext());
+        cows.setText(String.valueOf(result.cows));
+        row.addView(cows);
+        table.addView(row);
+    }
+
+    private TextView getTextView(Context context) {
+        TextView textView = new TextView(context);
+        textView.setGravity(Gravity.CENTER);
+        return textView;
     }
 
     void initialize(View layout) {
@@ -107,7 +140,16 @@ public class DigitPickerFragment extends Fragment {
                 break;
             default:
         }
+        clearTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
         chronometer.start();
+    }
+
+    private void clearTableLayout(TableLayout table) {
+        int count = table.getChildCount();
+        for (int i = 1; i < count; i++) {
+            View child = table.getChildAt(i);
+            if (child instanceof TableRow) ((ViewGroup) child).removeAllViews();
+        }
     }
 
 
