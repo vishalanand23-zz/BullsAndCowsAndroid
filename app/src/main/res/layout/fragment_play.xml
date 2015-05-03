@@ -11,7 +11,7 @@
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="320dp"
         android:stretchColumns="*"
         android:id="@+id/guess_display"
         android:background="#FF00FF">
@@ -32,6 +32,13 @@
         </TableRow>
     </TableLayout>
 
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:stretchColumns="*"
+        android:id="@+id/result_display"
+        android:layout_alignParentBottom="true"
+        android:background="#00FFF0"></TableLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

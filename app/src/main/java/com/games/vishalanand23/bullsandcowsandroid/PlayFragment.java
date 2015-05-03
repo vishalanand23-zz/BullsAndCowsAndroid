@@ -19,11 +19,13 @@ public class PlayFragment extends Fragment {
     private String originalValue;
 
     private int numberOfRounds = 1;
+    private boolean winGame = false;
     private char[] currentValue = new char[numberOfDigits];
 
     private Chronometer chronometer;
     private RoundResultHandler roundResulthandler;
     private GameResultHandler gameResultHandler;
+    private String androidId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,9 +33,10 @@ public class PlayFragment extends Fragment {
         initializeSubmitButton(layout);
         initializeNewGameButton(layout);
         reset(layout);
-        TableLayout table = (TableLayout) layout.findViewById(R.id.guess_display);
-        roundResulthandler = new RoundResultHandler(table);
-        gameResultHandler = new GameResultHandler(table);
+        TableLayout guessTable = (TableLayout) layout.findViewById(R.id.guess_display);
+        roundResulthandler = new RoundResultHandler(guessTable);
+        TableLayout resultTable = (TableLayout) layout.findViewById(R.id.result_display);
+        gameResultHandler = new GameResultHandler(resultTable);
         return layout;
     }
 
@@ -42,6 +45,11 @@ public class PlayFragment extends Fragment {
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!winGame) {
+                    PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
+                            -1, 0, Integer.MAX_VALUE);
+                    new DbStorageHelper(layout.getContext()).insertInDb(lostGame);
+                }
                 reset(layout);
             }
         });
@@ -49,7 +57,7 @@ public class PlayFragment extends Fragment {
 
     private void initializeSubmitButton(final View layout) {
         Button submitButton = (Button) layout.findViewById(R.id.submit);
-        final String androidId = Secure.getString(layout.getContext().getContentResolver(),
+        androidId = Secure.getString(layout.getContext().getContentResolver(),
                 Secure.ANDROID_ID);
         submitButton.setEnabled(false);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +66,19 @@ public class PlayFragment extends Fragment {
                 BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
                 roundResulthandler.display(guessedValue, result);
                 if (result.bulls == numberOfDigits) {
+                    winGame = true;
                     chronometer.stop();
                     int elapsedMillis = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
                     PlayResult playResult = new PlayResult(
                             androidId,
                             numberOfDigits,
-                            guessedValue,
+                            originalValue,
                             numberOfRounds,
-                            true,
+                            1,
                             elapsedMillis);
-                    new DbStorageHelper(layout.getContext()).insertInDb(playResult);
-                    gameResultHandler.displayGameResult(playResult);
+                    DbStorageHelper storageHelper = new DbStorageHelper(layout.getContext());
+                    storageHelper.insertInDb(playResult);
+                    gameResultHandler.displayGameResult(playResult, storageHelper);
                 } else {
                     numberOfRounds++;
                 }
@@ -78,6 +88,7 @@ public class PlayFragment extends Fragment {
 
     void reset(View layout) {
         numberOfRounds = 1;
+        winGame = false;
         chronometer = new Chronometer(layout.getContext());
         chronometer.setBase(SystemClock.elapsedRealtime());
         originalValue = new NewNumberGenerator().generate(numberOfDigits);

@@ -2,6 +2,7 @@ package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -55,5 +56,54 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         values.put(WIN_GAME, playResult.winGame);
         values.put(TIME_IN_MILLIS, playResult.timeInMillis);
         getWritableDatabase().insert(TABLE_NAME, null, values);
+    }
+
+    public int fastestTime() {
+        String[] projection = {TIME_IN_MILLIS};
+        String[] whereArgs = {Integer.toString(1)};
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                projection,
+                WIN_GAME + " = ?",
+                whereArgs,
+                null,
+                null,
+                TIME_IN_MILLIS,
+                "1");
+        cursor.moveToFirst();
+        int fastestTime = cursor.getInt(0);
+        cursor.close();
+        return fastestTime;
+    }
+
+    public int numberOfGames() {
+        String[] projection = {ID};
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
+        int number = cursor.getCount();
+        cursor.close();
+        return number;
+    }
+
+    public int numberOfWins() {
+        String[] projection = {ID};
+        String[] whereArgs = {Integer.toString(1)};
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                projection,
+                WIN_GAME + " = ?",
+                whereArgs,
+                null,
+                null,
+                null);
+        int number = cursor.getCount();
+        cursor.close();
+        return number;
     }
 }
