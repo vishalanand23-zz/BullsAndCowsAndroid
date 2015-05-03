@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -44,6 +45,16 @@ public class PlayFragment extends Fragment {
         return layout;
     }
 
+    private void forceScrollerDown(View layout) {
+        final ScrollView scroll = (ScrollView) layout.findViewById(R.id.guess_table_scroll_view);
+        scroll.post(new Runnable() {
+            @Override
+            public void run() {
+                scroll.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+    }
+
     private void initializeNewGameButton(final View layout) {
         Button newGameButton = (Button) layout.findViewById(R.id.new_game);
         newGameButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +80,7 @@ public class PlayFragment extends Fragment {
                 String guessedValue = new String(currentValue);
                 BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
                 roundResulthandler.display(guessedValue, result);
+                forceScrollerDown(layout);
                 if (result.isGuessCorrect(numberOfDigits)) {
                     winGame = true;
                     chronometer.stop();
