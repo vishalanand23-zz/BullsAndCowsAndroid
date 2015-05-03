@@ -67,6 +67,7 @@ public class PlayFragment extends Fragment {
                             numberOfRounds,
                             true,
                             elapsedMillis);
+                    new DbStorageHelper(layout.getContext()).insertInDb(playResult);
                     gameResultHandler.displayGameResult(playResult);
                 } else {
                     numberOfRounds++;
