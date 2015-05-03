@@ -14,7 +14,7 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/guess_table_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:background="#FF00FF">
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,7 +42,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:id="@+id/result_display"
         android:background="#00FFF0"
         android:orientation="vertical"
