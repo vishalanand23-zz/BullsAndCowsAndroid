@@ -12,10 +12,10 @@
     android:id="@+id/play">
 
     <fragment
-        android:name="com.games.vishalanand23.bullsandcowsandroid.DigitPickerFragment"
+        android:name="com.games.vishalanand23.bullsandcowsandroid.PlayFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_number_picker"
+        tools:layout="@layout/fragment_play"
         android:id="@+id/number_picker" />
 
 </FrameLayout>
