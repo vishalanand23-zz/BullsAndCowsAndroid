@@ -5,6 +5,9 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
+import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
+
 public class GameResultHandler {
     private final LinearLayout layout;
 
@@ -14,11 +17,11 @@ public class GameResultHandler {
 
     public void displayGameResult(PlayResult playResult, DbStorageHelper storageHelper) {
         TextView rounds = getTextView(layout.getContext());
-        rounds.setText("Rounds: " + playResult.numberOfGuesses);
+        rounds.setText("Rounds: " + playResult.getNumberOfGuesses());
         layout.addView(rounds);
 
         TextView time = getTextView(layout.getContext());
-        time.setText("Time: " + (playResult.timeInMillis / 1000) + " seconds");
+        time.setText("Time: " + (playResult.getTimeInMillis() / 1000f) + " seconds");
         layout.addView(time);
 
         TextView numberOfGames = getTextView(layout.getContext());
@@ -30,7 +33,7 @@ public class GameResultHandler {
         layout.addView(numberOfWins);
 
         TextView fastestTime = getTextView(layout.getContext());
-        fastestTime.setText("Fastest Time: " + (storageHelper.fastestTime() / 1000) + " seconds.");
+        fastestTime.setText("Fastest Time: " + (storageHelper.fastestTime() / 1000f) + " seconds.");
         layout.addView(fastestTime);
     }
 

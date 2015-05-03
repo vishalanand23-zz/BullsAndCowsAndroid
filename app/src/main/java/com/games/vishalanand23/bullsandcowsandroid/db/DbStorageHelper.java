@@ -1,4 +1,4 @@
-package com.games.vishalanand23.bullsandcowsandroid;
+package com.games.vishalanand23.bullsandcowsandroid.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 
 public class DbStorageHelper extends SQLiteOpenHelper {
 
@@ -49,12 +51,12 @@ public class DbStorageHelper extends SQLiteOpenHelper {
 
     public void insertInDb(PlayResult playResult) {
         ContentValues values = new ContentValues();
-        values.put(DEVICE_ID, playResult.deviceId);
-        values.put(NUM_OF_DIGITS, playResult.numberOfDigits);
-        values.put(PLAYING_NUMBER, playResult.playingNumber);
-        values.put(NUMBER_OF_GUESSES, playResult.numberOfGuesses);
-        values.put(WIN_GAME, playResult.winGame);
-        values.put(TIME_IN_MILLIS, playResult.timeInMillis);
+        values.put(DEVICE_ID, playResult.getDeviceId());
+        values.put(NUM_OF_DIGITS, playResult.getNumberOfDigits());
+        values.put(PLAYING_NUMBER, playResult.getPlayingNumber());
+        values.put(NUMBER_OF_GUESSES, playResult.getNumberOfGuesses());
+        values.put(WIN_GAME, playResult.getWinGame());
+        values.put(TIME_IN_MILLIS, playResult.getTimeInMillis());
         getWritableDatabase().insert(TABLE_NAME, null, values);
     }
 

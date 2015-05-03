@@ -6,6 +6,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
+
 public class RoundResultHandler {
 
     private final TableLayout table;
@@ -21,11 +23,11 @@ public class RoundResultHandler {
         row.addView(value);
 
         TextView bulls = getTextView(table.getContext());
-        bulls.setText(String.valueOf(result.bulls));
+        bulls.setText(String.valueOf(result.getBulls()));
         row.addView(bulls);
 
         TextView cows = getTextView(table.getContext());
-        cows.setText(String.valueOf(result.cows));
+        cows.setText(String.valueOf(result.getCows()));
         row.addView(cows);
         table.addView(row);
     }

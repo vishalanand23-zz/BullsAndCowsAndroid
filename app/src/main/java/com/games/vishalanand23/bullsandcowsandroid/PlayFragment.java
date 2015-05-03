@@ -14,6 +14,10 @@ import android.widget.NumberPicker;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
+import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
+import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
+
 public class PlayFragment extends Fragment {
     private int numberOfDigits = 4;
     private String originalValue;
@@ -65,7 +69,7 @@ public class PlayFragment extends Fragment {
                 String guessedValue = new String(currentValue);
                 BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
                 roundResulthandler.display(guessedValue, result);
-                if (result.bulls == numberOfDigits) {
+                if (result.isGuessCorrect(numberOfDigits)) {
                     winGame = true;
                     chronometer.stop();
                     int elapsedMillis = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());

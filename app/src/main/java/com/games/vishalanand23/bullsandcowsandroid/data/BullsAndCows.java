@@ -1,4 +1,4 @@
-package com.games.vishalanand23.bullsandcowsandroid;
+package com.games.vishalanand23.bullsandcowsandroid.data;
 
 public class BullsAndCows {
 
@@ -8,6 +8,14 @@ public class BullsAndCows {
     public BullsAndCows(int bulls, int cows) {
         this.bulls = bulls;
         this.cows = cows;
+    }
+
+    public int getBulls() {
+        return bulls;
+    }
+
+    public int getCows() {
+        return cows;
     }
 
     @Override
@@ -38,6 +46,10 @@ public class BullsAndCows {
             if (guess.charAt(i) == number.charAt(i)) bulls++;
         }
         return bulls;
+    }
+
+    public boolean isGuessCorrect(int numberOfDigits) {
+        return bulls == numberOfDigits;
     }
 
     public static void main(String args[]) {
