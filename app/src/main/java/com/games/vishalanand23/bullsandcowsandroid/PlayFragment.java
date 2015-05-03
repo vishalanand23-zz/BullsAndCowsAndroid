@@ -35,7 +35,7 @@ public class PlayFragment extends Fragment {
         reset(layout);
         TableLayout guessTable = (TableLayout) layout.findViewById(R.id.guess_display);
         roundResulthandler = new RoundResultHandler(guessTable);
-        TableLayout resultTable = (TableLayout) layout.findViewById(R.id.result_display);
+        LinearLayout resultTable = (LinearLayout) layout.findViewById(R.id.result_display);
         gameResultHandler = new GameResultHandler(resultTable);
         return layout;
     }
@@ -131,7 +131,7 @@ public class PlayFragment extends Fragment {
             default:
         }
         clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
-        clearResultTableLayout((TableLayout) layout.findViewById(R.id.result_display));
+        clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
         for (int i = 0; i < currentValue.length; i++) {
             currentValue[i] = '0';
         }
@@ -146,11 +146,11 @@ public class PlayFragment extends Fragment {
         }
     }
 
-    private void clearResultTableLayout(TableLayout table) {
-        int count = table.getChildCount();
-        for (int i = 1; i < count; i++) {
-            View child = table.getChildAt(i);
-            if (child instanceof TableRow) ((ViewGroup) child).removeAllViews();
+    private void clearResultLayout(LinearLayout layout) {
+        int count = layout.getChildCount();
+        for (int i = count - 1; i >= 0; i--) {
+            View child = layout.getChildAt(i);
+            layout.removeView(child);
         }
     }
 

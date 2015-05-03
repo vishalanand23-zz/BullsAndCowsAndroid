@@ -9,24 +9,18 @@
     tools:context="com.games.vishalanand23.bullsandcowsandroid.PlayFragment"
     android:id="@+id/number_picker_layout">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:stretchColumns="*"
+        android:layout_height="300dp"
         android:id="@+id/result_display"
-        android:background="#00FFF0">
+        android:background="#00FFF0"
+        android:orientation="vertical">
 
-        <TableRow>
-
-            <TextView
-                android:text="@string/nothing"
-                android:gravity="center" />
-        </TableRow>
-    </TableLayout>
+    </LinearLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="350dp"
         android:stretchColumns="*"
         android:id="@+id/guess_display"
         android:layout_alignParentBottom="true"
