@@ -14,6 +14,12 @@ public class GameResultHandler {
     }
 
     public void displayGameResult(PlayResult playResult, DbStorageHelper storageHelper) {
+        TableRow row0 = new TableRow(table.getContext());
+        TextView result = getTextView(table.getContext());
+        result.setText("Results: ");
+        row0.addView(result);
+        table.addView(row0);
+
         TableRow row1 = new TableRow(table.getContext());
         TextView rounds = getTextView(table.getContext());
         rounds.setText("Rounds: " + playResult.numberOfGuesses);

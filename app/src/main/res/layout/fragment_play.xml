@@ -11,13 +11,28 @@
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="280dp"
         android:stretchColumns="*"
-        android:id="@+id/guess_display"
-        android:background="#FF00FF">
+        android:id="@+id/result_display"
+        android:background="#00FFF0">
 
         <TableRow>
 
+            <TextView
+                android:text="@string/nothing"
+                android:gravity="center" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:stretchColumns="*"
+        android:id="@+id/guess_display"
+        android:layout_alignParentBottom="true"
+        android:background="#FF00FF">
+
+        <TableRow>
             <TextView
                 android:text="@string/guessed_number"
                 android:gravity="center" />
@@ -32,13 +47,6 @@
         </TableRow>
     </TableLayout>
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:stretchColumns="*"
-        android:id="@+id/result_display"
-        android:layout_alignParentBottom="true"
-        android:background="#00FFF0"></TableLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

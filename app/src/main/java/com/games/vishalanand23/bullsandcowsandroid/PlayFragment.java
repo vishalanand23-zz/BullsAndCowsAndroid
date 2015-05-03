@@ -130,14 +130,23 @@ public class PlayFragment extends Fragment {
                 break;
             default:
         }
-        clearTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
+        clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
+        clearResultTableLayout((TableLayout) layout.findViewById(R.id.result_display));
         for (int i = 0; i < currentValue.length; i++) {
             currentValue[i] = '0';
         }
         chronometer.start();
     }
 
-    private void clearTableLayout(TableLayout table) {
+    private void clearGuessTableLayout(TableLayout table) {
+        int count = table.getChildCount();
+        for (int i = 1; i < count; i++) {
+            View child = table.getChildAt(i);
+            if (child instanceof TableRow) ((ViewGroup) child).removeAllViews();
+        }
+    }
+
+    private void clearResultTableLayout(TableLayout table) {
         int count = table.getChildCount();
         for (int i = 1; i < count; i++) {
             View child = table.getChildAt(i);

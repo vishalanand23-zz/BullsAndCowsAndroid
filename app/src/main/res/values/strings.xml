@@ -7,4 +7,6 @@
     <string name="cows">Cows</string>
     <string name="bulls">Bulls</string>
     <string name="guessed_number">Guessed Number</string>
+    <string name="results">Results:</string>
+    <string name="nothing"></string>
 </resources>
