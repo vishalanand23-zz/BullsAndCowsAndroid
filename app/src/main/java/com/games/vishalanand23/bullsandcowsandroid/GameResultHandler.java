@@ -34,7 +34,7 @@ public class GameResultHandler {
         layout.addView(fastestTime);
 
         TextView score = getTextView(layout.getContext());
-        fastestTime.setText("Score: " + storageHelper.score() / 1000f);
+        score.setText("Score: " + storageHelper.score() / 1000f);
         layout.addView(score);
     }
 
