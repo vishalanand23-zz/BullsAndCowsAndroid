@@ -25,16 +25,17 @@ public class GameResultHandler {
         layout.addView(time);
 
         TextView numberOfGames = getTextView(layout.getContext());
-        numberOfGames.setText("Number of Games: " + storageHelper.numberOfGames());
+        numberOfGames.setText("Games Win/Played: " + storageHelper.numberOfWins()
+                + "/" + storageHelper.numberOfGames());
         layout.addView(numberOfGames);
-
-        TextView numberOfWins = getTextView(layout.getContext());
-        numberOfWins.setText("Number of Wins: " + storageHelper.numberOfWins());
-        layout.addView(numberOfWins);
 
         TextView fastestTime = getTextView(layout.getContext());
         fastestTime.setText("Fastest Time: " + (storageHelper.fastestTime() / 1000f) + " seconds.");
         layout.addView(fastestTime);
+
+        TextView score = getTextView(layout.getContext());
+        fastestTime.setText("Score: " + storageHelper.score() / 1000f);
+        layout.addView(score);
     }
 
 

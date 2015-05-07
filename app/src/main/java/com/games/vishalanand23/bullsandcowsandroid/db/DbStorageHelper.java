@@ -108,4 +108,22 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         cursor.close();
         return number;
     }
+
+    public long score() {
+        String[] projection = {"avg(" + TIME_IN_MILLIS + ")"};
+        String[] whereArgs = {Integer.toString(1)};
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                projection,
+                WIN_GAME + " = ?",
+                whereArgs,
+                null,
+                null,
+                TIME_IN_MILLIS,
+                "50");
+        cursor.moveToFirst();
+        int score = cursor.getInt(0);
+        cursor.close();
+        return score;
+    }
 }
