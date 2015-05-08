@@ -33,6 +33,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                     NUMBER_OF_GUESSES + " INTEGER ," +
                     WIN_GAME + " INTEGER ," +
                     TIME_IN_MILLIS + " INTEGER );";
+    private static final String NUMBER_IN_SCORE = "50";
 
     public DbStorageHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -113,21 +114,24 @@ public class DbStorageHelper extends SQLiteOpenHelper {
     }
 
     public long score() {
-        String[] projection = {"avg(" + TIME_IN_MILLIS + ")"};
-        String[] whereArgs = {Integer.toString(1)};
-        Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
-                projection,
-                WIN_GAME + " = ?",
-                whereArgs,
-                null,
-                null,
-                TIME_IN_MILLIS,
-                "50");
+        String subQuery = "select avg(" + TIME_IN_MILLIS + ") from ( select " + TIME_IN_MILLIS
+                + " from " + TABLE_NAME + " where " + WIN_GAME + "=1 order by " + TIME_IN_MILLIS
+                + " limit " + NUMBER_IN_SCORE + ") as t";
+        String[] args = {};
+        Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
         cursor.moveToFirst();
         int score = cursor.getInt(0);
         cursor.close();
         return score;
+    }
+
+    public void sanitizeDb() {
+        ContentValues newValues = new ContentValues();
+        newValues.put(TIME_IN_MILLIS, 2147483647);
+
+        getWritableDatabase().update(TABLE_NAME, newValues, "time_in_millis<0", null);
+
+        getWritableDatabase().delete(TABLE_NAME, "length(playing_number)" + "<" + "4", null);
     }
 
     public void createFile() {
@@ -143,20 +147,19 @@ public class DbStorageHelper extends SQLiteOpenHelper {
 
         try {
             String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-            String fileName = "abc.csv";
+            String fileName = "abc2.csv";
             String filePath = baseDir + File.separator + fileName;
             File f = new File(filePath);
             FileWriter mFileWriter = new FileWriter(filePath, true);
             while (cursor.moveToNext()) {
                 String writeRow = cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
-                        + cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
                         + cursor.getInt(cursor.getColumnIndex(NUM_OF_DIGITS)) + ","
-                        + cursor.getString(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
                         + cursor.getInt(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
                         + cursor.getInt(cursor.getColumnIndex(NUMBER_OF_GUESSES)) + ","
                         + cursor.getInt(cursor.getColumnIndex(WIN_GAME)) + ","
                         + cursor.getInt(cursor.getColumnIndex(TIME_IN_MILLIS));
                 mFileWriter.write(writeRow);
+                mFileWriter.write(System.getProperty("line.separator"));
             }
             mFileWriter.close();
         } catch (Exception e) {

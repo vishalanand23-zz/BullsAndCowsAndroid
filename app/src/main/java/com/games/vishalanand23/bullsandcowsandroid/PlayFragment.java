@@ -36,6 +36,7 @@ public class PlayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_play, container, false);
 //        new DbStorageHelper(layout.getContext()).createFile();
+//        new DbStorageHelper((layout.getContext())).sanitizeDb();
         initializeSubmitButton(layout);
         initializeNewGameButton(layout);
         reset(layout);
