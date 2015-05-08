@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 
+import java.io.File;
+import java.io.FileWriter;
+
 public class DbStorageHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
@@ -125,5 +128,40 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         int score = cursor.getInt(0);
         cursor.close();
         return score;
+    }
+
+    public void createFile() {
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                ID,
+                null);
+
+        try {
+            String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+            String fileName = "abc.csv";
+            String filePath = baseDir + File.separator + fileName;
+            File f = new File(filePath);
+            FileWriter mFileWriter = new FileWriter(filePath, true);
+            while (cursor.moveToNext()) {
+                String writeRow = cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
+                        + cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
+                        + cursor.getInt(cursor.getColumnIndex(NUM_OF_DIGITS)) + ","
+                        + cursor.getString(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
+                        + cursor.getInt(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
+                        + cursor.getInt(cursor.getColumnIndex(NUMBER_OF_GUESSES)) + ","
+                        + cursor.getInt(cursor.getColumnIndex(WIN_GAME)) + ","
+                        + cursor.getInt(cursor.getColumnIndex(TIME_IN_MILLIS));
+                mFileWriter.write(writeRow);
+            }
+            mFileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        cursor.close();
     }
 }
