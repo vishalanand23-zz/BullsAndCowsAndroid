@@ -42,7 +42,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:id="@+id/result_display"
         android:background="#00FFF0"
         android:orientation="vertical"
@@ -60,7 +60,7 @@
         android:id="@+id/number_roller"
         android:background="#FFF00F">
 
-    <NumberPicker
+        <NumberPicker
             android:id="@+id/digit_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -105,9 +105,9 @@
         android:layout_below="@+id/number_roller"
         android:background="#0FFF0F">
 
-    <Button
+        <Button
             android:id="@+id/submit"
-        android:layout_width="50dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/submit_button_text"
             android:layout_weight="0.5" />

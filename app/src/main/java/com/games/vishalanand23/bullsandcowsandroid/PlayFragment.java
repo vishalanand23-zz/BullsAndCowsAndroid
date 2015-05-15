@@ -2,35 +2,29 @@ package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.Settings.Secure;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 import com.games.vishalanand23.bullsandcowsandroid.network.ServerRequestHelper;
+
+import java.util.concurrent.Callable;
 
 public class PlayFragment extends Fragment {
     private int numberOfDigits = 4;
     private String originalValue;
 
-    private int numberOfRounds = 1;
-    private boolean winGame = false;
+    private volatile boolean winGame = false;
     private char[] currentValue = new char[numberOfDigits];
 
-    private Chronometer chronometer;
-    private RoundResultHandler roundResulthandler;
-    private GameResultHandler gameResultHandler;
     private ServerRequestHelper serverRequestHelper;
     private DbStorageHelper dbStorageHelper;
     private String androidId;
@@ -40,26 +34,10 @@ public class PlayFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_play, container, false);
 //        new DbStorageHelper(layout.getContext()).createFile();
 //        new DbStorageHelper((layout.getContext())).sanitizeDb();
-        initializeSubmitButton(layout);
-        initializeNewGameButton(layout);
         reset(layout);
-        TableLayout guessTable = (TableLayout) layout.findViewById(R.id.guess_display);
-        roundResulthandler = new RoundResultHandler(guessTable);
-        LinearLayout resultTable = (LinearLayout) layout.findViewById(R.id.result_display);
-        gameResultHandler = new GameResultHandler(resultTable);
         serverRequestHelper = new ServerRequestHelper(layout.getContext());
         dbStorageHelper = new DbStorageHelper(layout.getContext());
         return layout;
-    }
-
-    private void forceScrollerDown(View layout) {
-        final ScrollView scroll = (ScrollView) layout.findViewById(R.id.guess_table_scroll_view);
-        scroll.post(new Runnable() {
-            @Override
-            public void run() {
-                scroll.fullScroll(View.FOCUS_DOWN);
-            }
-        });
     }
 
     private void initializeNewGameButton(final View layout) {
@@ -83,39 +61,23 @@ public class PlayFragment extends Fragment {
         androidId = Secure.getString(layout.getContext().getContentResolver(),
                 Secure.ANDROID_ID);
         submitButton.setEnabled(false);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                String guessedValue = new String(currentValue);
-                BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
-                roundResulthandler.display(guessedValue, result);
-                forceScrollerDown(layout);
-                if (result.isGuessCorrect(numberOfDigits)) {
-                    winGame = true;
-                    chronometer.stop();
-                    int elapsedMillis = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
-                    PlayResult playResult = new PlayResult(
-                            androidId,
-                            numberOfDigits,
-                            originalValue,
-                            numberOfRounds,
-                            1,
-                            elapsedMillis);
-                    dbStorageHelper.insertInDb(playResult);
-                    serverRequestHelper.postRequest(playResult);
-                    gameResultHandler.displayGameResult(playResult, dbStorageHelper, numberOfDigits);
-                } else {
-                    numberOfRounds++;
-                }
-            }
-        });
+        SubmitOnClickListener submitListener =
+                new SubmitOnClickListener(layout, numberOfDigits, originalValue, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        winGame = true;
+                        return null;
+                    }
+                });
+        submitButton.setOnClickListener(submitListener);
+        submitListener.reset();
     }
 
-    void reset(View layout) {
-        numberOfRounds = 1;
-        winGame = false;
-        chronometer = new Chronometer(layout.getContext());
-        chronometer.setBase(SystemClock.elapsedRealtime());
+    private void reset(View layout) {
         originalValue = new NewNumberGenerator().generate(numberOfDigits);
+        initializeSubmitButton(layout);
+        initializeNewGameButton(layout);
+        winGame = false;
         switch (numberOfDigits) {
             case 2:
                 initializeNumberPickerArray(layout,
@@ -159,7 +121,6 @@ public class PlayFragment extends Fragment {
         for (int i = 0; i < currentValue.length; i++) {
             currentValue[i] = '0';
         }
-        chronometer.start();
     }
 
     private void clearGuessTableLayout(TableLayout table) {
@@ -192,7 +153,6 @@ public class PlayFragment extends Fragment {
             final int i1 = i;
             np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 Button submit = (Button) view.findViewById(R.id.submit);
-
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldNum, int newNum) {
                     currentValue[i1] = Character.forDigit(newNum, 10);

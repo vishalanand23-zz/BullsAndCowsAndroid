@@ -70,7 +70,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query(
                 TABLE_NAME,
                 projection,
-                WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ?",
+                WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
                 whereArgs,
                 null,
                 null,
@@ -88,7 +88,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query(
                 TABLE_NAME,
                 projection,
-                NUM_OF_DIGITS + " = ?",
+                NUM_OF_DIGITS + " = ? ",
                 whereArgs,
                 null,
                 null,
@@ -100,11 +100,11 @@ public class DbStorageHelper extends SQLiteOpenHelper {
 
     public int numberOfWins(int numberOfDigits) {
         String[] projection = {ID};
-        String[] whereArgs = {Integer.toString(numberOfDigits)};
+        String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
                 TABLE_NAME,
                 projection,
-                NUM_OF_DIGITS + " = ?",
+                WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
                 whereArgs,
                 null,
                 null,
@@ -117,7 +117,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
     public long score(int numberOfDigits) {
         String subQuery = "select avg(" + TIME_IN_MILLIS + ") from ( select " + TIME_IN_MILLIS
                 + " from " + TABLE_NAME + " where " + WIN_GAME + " = 1 AND " + NUM_OF_DIGITS
-                + " = " + numberOfDigits + "order by " + TIME_IN_MILLIS
+                + " = " + numberOfDigits + " order by " + TIME_IN_MILLIS
                 + " limit " + NUMBER_IN_SCORE + ") as t";
         String[] args = {};
         Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
