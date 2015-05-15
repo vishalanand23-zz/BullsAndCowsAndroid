@@ -102,7 +102,7 @@ public class PlayFragment extends Fragment {
                             elapsedMillis);
                     dbStorageHelper.insertInDb(playResult);
                     serverRequestHelper.postRequest(playResult);
-                    gameResultHandler.displayGameResult(playResult, dbStorageHelper);
+                    gameResultHandler.displayGameResult(playResult, dbStorageHelper, numberOfDigits);
                 } else {
                     numberOfRounds++;
                 }
