@@ -1,4 +1,4 @@
-package com.games.vishalanand23.bullsandcowsandroid;
+package com.games.vishalanand23.bullsandcowsandroid.resulthandler;
 
 import android.content.Context;
 import android.view.Gravity;
