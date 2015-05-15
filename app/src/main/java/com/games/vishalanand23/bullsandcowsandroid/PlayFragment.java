@@ -23,17 +23,20 @@ public class PlayFragment extends Fragment {
     private String originalValue;
 
     private volatile boolean winGame = false;
-    private char[] currentValue = new char[numberOfDigits];
+    private char[] currentValue;
 
     private ServerRequestHelper serverRequestHelper;
     private DbStorageHelper dbStorageHelper;
     private String androidId;
+    private NumberPicker numberPickerForNumberOfDigits;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_play, container, false);
 //        new DbStorageHelper(layout.getContext()).createFile();
 //        new DbStorageHelper((layout.getContext())).sanitizeDb();
+        numberPickerForNumberOfDigits = (NumberPicker) layout.findViewById(R.id.number_of_digits);
+        initializeNumberOfDigitsPicker();
         reset(layout);
         serverRequestHelper = new ServerRequestHelper(layout.getContext());
         dbStorageHelper = new DbStorageHelper(layout.getContext());
@@ -42,6 +45,7 @@ public class PlayFragment extends Fragment {
 
     private void initializeNewGameButton(final View layout) {
         Button newGameButton = (Button) layout.findViewById(R.id.new_game);
+        // TODO: Figure out how to pass winGame dynamically and then extract this to a new class.
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +78,9 @@ public class PlayFragment extends Fragment {
     }
 
     private void reset(View layout) {
+        numberOfDigits = numberPickerForNumberOfDigits.getValue();
+        if (numberOfDigits == 0) numberOfDigits = 4; // Base case
+        currentValue = new char[numberOfDigits];
         originalValue = new NewNumberGenerator().generate(numberOfDigits);
         initializeSubmitButton(layout);
         initializeNewGameButton(layout);
@@ -160,6 +167,13 @@ public class PlayFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void initializeNumberOfDigitsPicker() {
+        numberPickerForNumberOfDigits.setMaxValue(6);
+        numberPickerForNumberOfDigits.setMinValue(2);
+        numberPickerForNumberOfDigits.setWrapSelectorWheel(true);
+        numberPickerForNumberOfDigits.setValue(4);
     }
 
     private void checkDigits(Button submit) {
