@@ -15,7 +15,13 @@ public class GameResultHandler {
         this.layout = layout;
     }
 
-    public void displayGameResult(PlayResult playResult, DbStorageHelper storageHelper) {
+    public void displayGameResult(PlayResult playResult,
+                                  DbStorageHelper storageHelper,
+                                  int numberOfDigits) {
+        TextView digits = getTextView(layout.getContext());
+        digits.setText("Number of digits: " + numberOfDigits);
+        layout.addView(digits);
+
         TextView rounds = getTextView(layout.getContext());
         rounds.setText("Rounds: " + playResult.getNumberOfGuesses());
         layout.addView(rounds);
@@ -25,16 +31,17 @@ public class GameResultHandler {
         layout.addView(time);
 
         TextView numberOfGames = getTextView(layout.getContext());
-        numberOfGames.setText("Games Win/Played: " + storageHelper.numberOfWins()
-                + "/" + storageHelper.numberOfGames());
+        numberOfGames.setText("Games Win/Played: " + storageHelper.numberOfWins(numberOfDigits)
+                + "/" + storageHelper.numberOfGames(numberOfDigits));
         layout.addView(numberOfGames);
 
         TextView fastestTime = getTextView(layout.getContext());
-        fastestTime.setText("Fastest Time: " + (storageHelper.fastestTime() / 1000f) + " seconds.");
+        fastestTime.setText("Fastest Time: "
+                + (storageHelper.fastestTime(numberOfDigits) / 1000f) + " seconds.");
         layout.addView(fastestTime);
 
         TextView score = getTextView(layout.getContext());
-        score.setText("Score: " + storageHelper.score() / 1000f);
+        score.setText("Score: " + storageHelper.score(numberOfDigits) / 1000f);
         layout.addView(score);
     }
 

@@ -64,13 +64,13 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         getWritableDatabase().insert(TABLE_NAME, null, values);
     }
 
-    public int fastestTime() {
+    public int fastestTime(int numberOfDigits) {
         String[] projection = {TIME_IN_MILLIS};
-        String[] whereArgs = {Integer.toString(1)};
+        String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
                 TABLE_NAME,
                 projection,
-                WIN_GAME + " = ?",
+                WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ?",
                 whereArgs,
                 null,
                 null,
@@ -82,28 +82,13 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         return fastestTime;
     }
 
-    public int numberOfGames() {
+    public int numberOfGames(int numberOfDigits) {
         String[] projection = {ID};
+        String[] whereArgs = {Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
                 TABLE_NAME,
                 projection,
-                null,
-                null,
-                null,
-                null,
-                null);
-        int number = cursor.getCount();
-        cursor.close();
-        return number;
-    }
-
-    public int numberOfWins() {
-        String[] projection = {ID};
-        String[] whereArgs = {Integer.toString(1)};
-        Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
-                projection,
-                WIN_GAME + " = ?",
+                NUM_OF_DIGITS + " = ?",
                 whereArgs,
                 null,
                 null,
@@ -113,9 +98,26 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         return number;
     }
 
-    public long score() {
+    public int numberOfWins(int numberOfDigits) {
+        String[] projection = {ID};
+        String[] whereArgs = {Integer.toString(numberOfDigits)};
+        Cursor cursor = getReadableDatabase().query(
+                TABLE_NAME,
+                projection,
+                NUM_OF_DIGITS + " = ?",
+                whereArgs,
+                null,
+                null,
+                null);
+        int number = cursor.getCount();
+        cursor.close();
+        return number;
+    }
+
+    public long score(int numberOfDigits) {
         String subQuery = "select avg(" + TIME_IN_MILLIS + ") from ( select " + TIME_IN_MILLIS
-                + " from " + TABLE_NAME + " where " + WIN_GAME + "=1 order by " + TIME_IN_MILLIS
+                + " from " + TABLE_NAME + " where " + WIN_GAME + " = 1 AND " + NUM_OF_DIGITS
+                + " = " + numberOfDigits + "order by " + TIME_IN_MILLIS
                 + " limit " + NUMBER_IN_SCORE + ") as t";
         String[] args = {};
         Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
