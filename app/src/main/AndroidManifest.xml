@@ -2,16 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.games.vishalanand23.bullsandcowsandroid">
 
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-    android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" >
-    <activity
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
+        <activity
             android:name=".PlayActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

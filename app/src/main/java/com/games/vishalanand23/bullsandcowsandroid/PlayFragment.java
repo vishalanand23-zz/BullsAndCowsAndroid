@@ -18,6 +18,7 @@ import android.widget.TableRow;
 import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
+import com.games.vishalanand23.bullsandcowsandroid.network.ServerRequestHelper;
 
 public class PlayFragment extends Fragment {
     private int numberOfDigits = 4;
@@ -30,6 +31,8 @@ public class PlayFragment extends Fragment {
     private Chronometer chronometer;
     private RoundResultHandler roundResulthandler;
     private GameResultHandler gameResultHandler;
+    private ServerRequestHelper serverRequestHelper;
+    private DbStorageHelper dbStorageHelper;
     private String androidId;
 
     @Override
@@ -44,6 +47,8 @@ public class PlayFragment extends Fragment {
         roundResulthandler = new RoundResultHandler(guessTable);
         LinearLayout resultTable = (LinearLayout) layout.findViewById(R.id.result_display);
         gameResultHandler = new GameResultHandler(resultTable);
+        serverRequestHelper = new ServerRequestHelper(layout.getContext());
+        dbStorageHelper = new DbStorageHelper(layout.getContext());
         return layout;
     }
 
@@ -65,7 +70,8 @@ public class PlayFragment extends Fragment {
                 if (!winGame) {
                     PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
                             -1, 0, Integer.MAX_VALUE);
-                    new DbStorageHelper(layout.getContext()).insertInDb(lostGame);
+                    dbStorageHelper.insertInDb(lostGame);
+                    serverRequestHelper.postRequest(lostGame);
                 }
                 reset(layout);
             }
@@ -94,9 +100,9 @@ public class PlayFragment extends Fragment {
                             numberOfRounds,
                             1,
                             elapsedMillis);
-                    DbStorageHelper storageHelper = new DbStorageHelper(layout.getContext());
-                    storageHelper.insertInDb(playResult);
-                    gameResultHandler.displayGameResult(playResult, storageHelper);
+                    dbStorageHelper.insertInDb(playResult);
+                    serverRequestHelper.postRequest(playResult);
+                    gameResultHandler.displayGameResult(playResult, dbStorageHelper);
                 } else {
                     numberOfRounds++;
                 }
