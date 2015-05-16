@@ -2,6 +2,7 @@ package com.games.vishalanand23.bullsandcowsandroid.resulthandler;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class GameResultHandler {
     public void displayGameResult(PlayResult playResult,
                                   DbStorageHelper storageHelper,
                                   int numberOfDigits) {
+        clearResultLayout();
         TextView digits = getTextView(layout.getContext());
         digits.setText("Number of digits: " + numberOfDigits);
         layout.addView(digits);
@@ -46,6 +48,14 @@ public class GameResultHandler {
     }
 
 
+    private void clearResultLayout() {
+        layout.setVisibility(View.VISIBLE);
+        int count = layout.getChildCount();
+        for (int i = count - 1; i >= 0; i--) {
+            View child = layout.getChildAt(i);
+            layout.removeView(child);
+        }
+    }
     private TextView getTextView(Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);

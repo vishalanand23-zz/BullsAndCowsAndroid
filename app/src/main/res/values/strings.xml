@@ -9,4 +9,9 @@
     <string name="guessed_number">Guessed Number</string>
     <string name="results">Results:</string>
     <string name="nothing"></string>
+    <string name="digit_6">6 digit</string>
+    <string name="digit_5">5 digit</string>
+    <string name="digit_4">4 digit</string>
+    <string name="digit_3">3 digit</string>
+    <string name="digit_2">2 digit</string>
 </resources>

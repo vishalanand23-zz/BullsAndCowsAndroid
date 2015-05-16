@@ -11,10 +11,65 @@
     tools:context="com.games.vishalanand23.bullsandcowsandroid.PlayFragment"
     android:id="@+id/number_picker_layout">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_game_label">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_game_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/begin_game"
+        android:layout_below="@+id/new_game_label"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/new_game_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_2"
+            android:layout_weight="0.2" />
+
+        <Button
+            android:id="@+id/new_game_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_3"
+            android:layout_weight="0.2" />
+
+        <Button
+            android:id="@+id/new_game_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_4"
+            android:layout_weight="0.2" />
+
+        <Button
+            android:id="@+id/new_game_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_5"
+            android:layout_weight="0.2" />
+
+        <Button
+            android:id="@+id/new_game_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_6"
+            android:layout_weight="0.2" />
+    </LinearLayout>
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/guess_table_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/begin_game"
         android:background="#FF00FF">
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,21 +97,18 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:id="@+id/result_display"
         android:background="#00FFF0"
         android:orientation="vertical"
-        android:layout_below="@+id/guess_table_scroll_view"
-        android:layout_alignParentEnd="true">
-
-    </LinearLayout>
+        android:layout_above="@+id/number_roller"></LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:weightSum="1"
         android:orientation="horizontal"
-        android:layout_below="@+id/result_display"
+        android:layout_above="@+id/submit_button_layout"
         android:id="@+id/number_roller"
         android:background="#FFF00F">
 
@@ -100,31 +152,14 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:orientation="horizontal"
-        android:layout_below="@+id/number_roller">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit_button_layout">
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="50dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/submit_button_text"
-            android:layout_weight="0.45"
             android:background="#0FFF0F" />
-
-        <Button
-            android:id="@+id/new_game"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="@string/new_game_text"
-            android:layout_weight="0.35"
-            android:background="#FF0000" />
-
-        <NumberPicker
-            android:id="@+id/number_of_digits"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.2"
-            android:background="#FF0000" />
     </LinearLayout>
 </RelativeLayout>
