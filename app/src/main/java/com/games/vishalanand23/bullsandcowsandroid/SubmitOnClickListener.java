@@ -53,7 +53,6 @@ public class SubmitOnClickListener implements View.OnClickListener {
         String guessedValue = new String(fetchCurrentValue());
         BullsAndCows result = BullsAndCows.calculate(originalValue, guessedValue);
         roundResulthandler.display(guessedValue, result);
-        forceScrollerDown(layout);
         if (result.isGuessCorrect(numberOfDigits)) {
             try {
                 gameWonCallback.call();
@@ -75,6 +74,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
         } else {
             numberOfRounds++;
         }
+        forceScrollerDown();
     }
 
 
@@ -106,7 +106,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
         }
     }
 
-    private void forceScrollerDown(View layout) {
+    private void forceScrollerDown() {
         final ScrollView scroll = (ScrollView) layout.findViewById(R.id.guess_table_scroll_view);
         scroll.post(new Runnable() {
             @Override
