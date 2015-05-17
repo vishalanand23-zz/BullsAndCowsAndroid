@@ -19,11 +19,8 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/new_game_text"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:background="@color/red" />
+            style="@style/new_game_text" />
     </LinearLayout>
 
     <LinearLayout
@@ -32,7 +29,7 @@
         android:id="@+id/begin_game"
         android:layout_below="@+id/new_game_label"
         android:orientation="horizontal"
-        android:background="@color/red">
+        style="@style/new_game_button_layout">
 
     <Button
             android:id="@+id/new_game_2"
@@ -76,17 +73,18 @@
         android:layout_height="200dp"
         android:layout_below="@+id/begin_game"
         android:layout_above="@+id/result_display"
-        android:background="@color/green">
+        style="@style/round_result_layout">
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="*"
-            android:id="@+id/guess_display">
+            android:id="@+id/guess_display_table">
 
-            <TableRow>
+            <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/round_result_header">
 
-                <TextView
+            <TextView
                     android:text="@string/guessed_number"
                     android:gravity="center" />
 
@@ -107,7 +105,14 @@
         android:id="@+id/result_display"
         android:orientation="vertical"
         android:layout_above="@+id/number_roller"
-        android:background="@color/blue"></LinearLayout>
+        style="@style/game_result_layout">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:id="@+id/result_display_table"></TableLayout>
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -116,13 +121,14 @@
         android:orientation="horizontal"
         android:layout_above="@+id/submit_button_layout"
         android:id="@+id/number_roller"
-        android:background="@color/orange">
+        style="@style/number_picker_layout">
 
-    <NumberPicker
+        <NumberPicker
             android:id="@+id/digit_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            style="@style/number_picker" />
 
         <NumberPicker
             android:id="@+id/digit_2"
@@ -165,7 +171,7 @@
             android:id="@+id/submit"
             android:text="@string/submit_button_text"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            style="@style/guess_button_text" />
+            android:layout_height="wrap_content"
+            style="@style/submit_button" />
     </LinearLayout>
 </RelativeLayout>
