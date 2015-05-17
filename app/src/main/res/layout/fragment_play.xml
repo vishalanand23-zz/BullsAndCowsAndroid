@@ -9,6 +9,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context="com.games.vishalanand23.bullsandcowsandroid.PlayFragment"
+    android:background="@drawable/strange_blue"
     android:id="@+id/number_picker_layout">
 
     <LinearLayout

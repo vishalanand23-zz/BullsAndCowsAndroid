@@ -21,7 +21,7 @@ public class RoundResultHandler {
     public void display(String currentValue, BullsAndCows result) {
         TableRow row = new TableRow(table.getContext());
         if (isBlue) {
-            row.setBackgroundColor(table.getResources().getColor(R.color.blue));
+            row.setBackgroundColor(table.getResources().getColor(R.color.grey));
         }
         isBlue = !isBlue;
         TextView value = getTextView(table.getContext());
