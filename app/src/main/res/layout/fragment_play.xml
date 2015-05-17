@@ -82,8 +82,7 @@
             android:id="@+id/guess_display">
 
             <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/round_result_header"
-                android:background="@color/light_blue">
+                style="@style/round_result_header">
 
             <TextView
                     android:text="@string/guessed_number"
