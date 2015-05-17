@@ -8,9 +8,9 @@
     <string name="bulls">Bulls</string>
     <string name="guessed_number">Guessed Number</string>
     <string name="results">Results:</string>
-    <string name="digit_6">6 digit</string>
-    <string name="digit_5">5 digit</string>
-    <string name="digit_4">4 digit</string>
-    <string name="digit_3">3 digit</string>
-    <string name="digit_2">2 digit</string>
+    <string name="digit_6">6 Digit</string>
+    <string name="digit_5">5 Digit</string>
+    <string name="digit_4">4 Digit</string>
+    <string name="digit_3">3 Digit</string>
+    <string name="digit_2">2 Digit</string>
 </resources>

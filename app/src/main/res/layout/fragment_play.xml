@@ -36,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/digit_2"
+        android:textAllCaps="false"
             android:layout_weight="0.2" />
 
         <Button
@@ -43,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/digit_3"
+            android:textAllCaps="false"
             android:layout_weight="0.2" />
 
         <Button
@@ -50,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/digit_4"
+            android:textAllCaps="false"
             android:layout_weight="0.2" />
 
         <Button
@@ -57,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/digit_5"
+            android:textAllCaps="false"
             android:layout_weight="0.2" />
 
         <Button
@@ -64,13 +68,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/digit_6"
+            android:textAllCaps="false"
             android:layout_weight="0.2" />
     </LinearLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/guess_table_scroll_view"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/begin_game"
         android:layout_above="@+id/result_display"
         style="@style/round_result_layout">
