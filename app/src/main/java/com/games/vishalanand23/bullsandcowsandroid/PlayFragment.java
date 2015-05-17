@@ -28,7 +28,6 @@ public class PlayFragment extends Fragment {
     private ServerRequestHelper serverRequestHelper;
     private DbStorageHelper dbStorageHelper;
     private String androidId;
-//    private NumberPicker numberPickerForNumberOfDigits;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -176,7 +175,7 @@ public class PlayFragment extends Fragment {
 
     private void clearGuessTableLayout(TableLayout table) {
         int count = table.getChildCount();
-        for (int i = 1; i < count; i++) {
+        for (int i = count - 1; i >= 1; i--) { // 1st row is header, so don't clear.
             View child = table.getChildAt(i);
             if (child instanceof TableRow) ((ViewGroup) child).removeAllViews();
         }
