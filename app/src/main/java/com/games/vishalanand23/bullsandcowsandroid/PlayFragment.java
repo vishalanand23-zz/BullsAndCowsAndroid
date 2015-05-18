@@ -22,12 +22,12 @@ public class PlayFragment extends Fragment {
     private int numberOfDigits = 4;
     private String originalValue;
 
-    private volatile boolean winGame = false;
-    private char[] currentValue;
-
     private ServerRequestHelper serverRequestHelper;
-    private DbStorageHelper dbStorageHelper;
     private String androidId;
+    private DbStorageHelper dbStorageHelper;
+
+    private volatile boolean winGame = false;
+    private volatile char[] currentValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class PlayFragment extends Fragment {
         newGameButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveLostGameIfNecessary(layout);
+                saveLostGameIfNecessary();
                 numberOfDigits = 2;
                 reset(layout);
             }
@@ -56,7 +56,7 @@ public class PlayFragment extends Fragment {
         newGameButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveLostGameIfNecessary(layout);
+                saveLostGameIfNecessary();
                 numberOfDigits = 3;
                 reset(layout);
             }
@@ -66,7 +66,7 @@ public class PlayFragment extends Fragment {
         newGameButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveLostGameIfNecessary(layout);
+                saveLostGameIfNecessary();
                 numberOfDigits = 4;
                 reset(layout);
             }
@@ -76,7 +76,7 @@ public class PlayFragment extends Fragment {
         newGameButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveLostGameIfNecessary(layout);
+                saveLostGameIfNecessary();
                 numberOfDigits = 5;
                 reset(layout);
             }
@@ -86,7 +86,7 @@ public class PlayFragment extends Fragment {
         newGameButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveLostGameIfNecessary(layout);
+                saveLostGameIfNecessary();
                 numberOfDigits = 6;
                 reset(layout);
             }
@@ -94,7 +94,7 @@ public class PlayFragment extends Fragment {
 
     }
 
-    private void saveLostGameIfNecessary(View layout) {
+    private void saveLostGameIfNecessary() {
         if (!winGame) {
             PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
                     -1, 0, Integer.MAX_VALUE);
@@ -128,6 +128,9 @@ public class PlayFragment extends Fragment {
         initializeSubmitButton(layout);
         initializeNewGameButton(layout);
         winGame = false;
+        clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
+        clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
+        clearNumberPickerLayout((LinearLayout) layout.findViewById(R.id.number_roller));
         switch (numberOfDigits) {
             case 2:
                 initializeNumberPickerArray(layout,
@@ -166,10 +169,16 @@ public class PlayFragment extends Fragment {
                 break;
             default:
         }
-        clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
-        clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
         for (int i = 0; i < currentValue.length; i++) {
             currentValue[i] = '0';
+        }
+    }
+
+    private void clearNumberPickerLayout(LinearLayout layout) {
+        int count = layout.getChildCount();
+        for (int i = count - 1; i >= 0; i--) {
+            View child = layout.getChildAt(i);
+            child.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -194,6 +203,7 @@ public class PlayFragment extends Fragment {
         float weight = 1.0f / numberOfDigits;
         for (int i = 0; i < numberPickerArray.length; i++) {
             NumberPicker np = numberPickerArray[i];
+            np.setVisibility(View.VISIBLE);
             np.setMinValue(0);
             np.setMaxValue(9);
             np.setValue(0);
@@ -214,7 +224,7 @@ public class PlayFragment extends Fragment {
     }
 
     private void checkDigits(Button submit) {
-        if (allCharactersDifferent()) {
+        if (allCharactersDifferent() && !winGame) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);

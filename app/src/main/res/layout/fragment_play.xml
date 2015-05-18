@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/digit_2"
         android:textAllCaps="false"
-            android:layout_weight="0.2" />
+        android:layout_weight="0.2" />
 
         <Button
             android:id="@+id/new_game_3"
@@ -165,13 +165,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/submit_button_layout">
+        android:id="@+id/submit_button_layout"
+        android:gravity="center"
+        style="@style/submit_button_layout">
 
         <Button
             android:id="@+id/submit"
             android:text="@string/submit_button_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="@style/submit_button" />
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_background" />
     </LinearLayout>
 </RelativeLayout>
