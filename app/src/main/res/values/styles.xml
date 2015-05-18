@@ -12,19 +12,19 @@
     </style>
 
     <style name="submit_button_layout">
-    <item name="android:background">@color/green</item>
+        <item name="android:background">@color/light_blue</item>
     </style>
 
     <style name="new_game_text">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@color/light_blue</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="new_game_button_layout">
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@color/light_blue</item>
     </style>
 
     <style name="round_result_layout">

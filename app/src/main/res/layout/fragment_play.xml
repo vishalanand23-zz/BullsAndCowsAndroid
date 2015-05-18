@@ -173,9 +173,12 @@
             android:id="@+id/submit"
             android:text="@string/submit_button_text"
             android:layout_width="200dp"
+            android:textStyle="bold"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
             android:textSize="22sp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:background="@drawable/button_background" />
     </LinearLayout>
 </RelativeLayout>

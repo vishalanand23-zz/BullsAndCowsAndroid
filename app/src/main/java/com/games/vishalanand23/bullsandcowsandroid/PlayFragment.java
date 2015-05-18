@@ -208,6 +208,7 @@ public class PlayFragment extends Fragment {
             np.setMaxValue(9);
             np.setValue(0);
             np.setWrapSelectorWheel(true);
+            np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             LinearLayout layout = (LinearLayout) (view.findViewById(np.getId()));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(5, 300, weight);
             layout.setLayoutParams(lp);

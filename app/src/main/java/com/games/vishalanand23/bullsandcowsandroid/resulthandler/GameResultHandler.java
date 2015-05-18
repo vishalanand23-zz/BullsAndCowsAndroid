@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.games.vishalanand23.bullsandcowsandroid.R;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 
@@ -44,6 +45,7 @@ public class GameResultHandler {
 
         TextView score = getTextView(layout.getContext());
         score.setText("Score: " + storageHelper.score(numberOfDigits) / 1000f);
+        score.setBackgroundColor(layout.getResources().getColor(R.color.light_blue));
         layout.addView(score);
     }
 

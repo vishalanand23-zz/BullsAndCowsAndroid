@@ -6,6 +6,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.games.vishalanand23.bullsandcowsandroid.R;
 import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
 
 public class RoundResultHandler {
@@ -19,10 +20,13 @@ public class RoundResultHandler {
 
     public void display(String currentValue, BullsAndCows result) {
         TableRow row = new TableRow(table.getContext());
-        if (isBlue) {
-//            row.setBackgroundColor(table.getResources().getColor(R.color.grey));
-        }
-        isBlue = !isBlue;
+        TableLayout.LayoutParams lp =
+                new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT);
+
+        lp.setMargins(0, 2, 0, 2);
+        row.setLayoutParams(lp);
+        row.setBackgroundColor(table.getResources().getColor(R.color.light_blue));
         TextView value = getTextView(table.getContext());
         value.setText(currentValue);
         row.addView(value);
@@ -34,7 +38,7 @@ public class RoundResultHandler {
         TextView cows = getTextView(table.getContext());
         cows.setText(String.valueOf(result.getCows()));
         row.addView(cows);
-        table.addView(row);
+        table.addView(row, lp);
     }
 
     private TextView getTextView(Context context) {
