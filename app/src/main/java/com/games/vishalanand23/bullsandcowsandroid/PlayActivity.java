@@ -170,7 +170,7 @@ public class PlayActivity extends AppCompatActivity {
         final Button submitButton = (Button) findViewById(R.id.submit);
         androidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        submitButton.setEnabled(false);
+        submitButton.setEnabled(true);
         SubmitOnClickListener submitListener =
                 new SubmitOnClickListener(this, numberOfDigits, originalValue, gameData);
         submitButton.setOnClickListener(submitListener);
@@ -253,7 +253,7 @@ public class PlayActivity extends AppCompatActivity {
             np.setVisibility(View.VISIBLE);
             np.setMinValue(0);
             np.setMaxValue(9);
-            np.setValue(0);
+            np.setValue(i + 1);
             np.setWrapSelectorWheel(true);
             np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             LinearLayout linearLayout = (LinearLayout) (findViewById(np.getId()));

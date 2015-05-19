@@ -19,7 +19,7 @@ public class GameData {
         winGame = false;
         currentValue = new char[numberOfDigits];
         for (int i = 0; i < numberOfDigits; i++) {
-            currentValue[i] = '0';
+            currentValue[i] = Character.forDigit(i + 1, 10);
         }
         chronometer = new Chronometer(context);
         chronometer.setBase(SystemClock.elapsedRealtime());
