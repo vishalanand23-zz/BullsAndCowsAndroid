@@ -46,20 +46,54 @@ public class PlayFragment extends Fragment {
         super.onPause();
     }
 
-    private void initializePauseGameButton() {
-        final Button pauseButton = (Button) layout.findViewById(R.id.pause);
-        final TextView pauseLabel = (TextView) layout.findViewById(R.id.pause_game_label);
-        pauseLabel.setVisibility(View.GONE);
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gameData.isGamePaused()) {
-                    resume();
-                } else {
-                    pause();
-                }
-            }
-        });
+    private void reset() {
+        if (numberOfDigits == 0) numberOfDigits = 4; // Base case
+        originalValue = new NewNumberGenerator().generate(numberOfDigits);
+        gameData = new GameData(layout.getContext(), numberOfDigits);
+        initializeSubmitButton();
+        initializeNewGameButton();
+        initializePauseGameButton();
+        clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
+        clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
+        clearNumberPickerLayout((LinearLayout) layout.findViewById(R.id.number_roller));
+        switch (numberOfDigits) {
+            case 2:
+                initializeNumberPickerArray(
+                        (NumberPicker) layout.findViewById(R.id.digit_1),
+                        (NumberPicker) layout.findViewById(R.id.digit_2));
+                break;
+            case 3:
+                initializeNumberPickerArray(
+                        (NumberPicker) layout.findViewById(R.id.digit_1),
+                        (NumberPicker) layout.findViewById(R.id.digit_2),
+                        (NumberPicker) layout.findViewById(R.id.digit_3));
+                break;
+            case 4:
+                initializeNumberPickerArray(
+                        (NumberPicker) layout.findViewById(R.id.digit_1),
+                        (NumberPicker) layout.findViewById(R.id.digit_2),
+                        (NumberPicker) layout.findViewById(R.id.digit_3),
+                        (NumberPicker) layout.findViewById(R.id.digit_4));
+                break;
+            case 5:
+                initializeNumberPickerArray(
+                        (NumberPicker) layout.findViewById(R.id.digit_1),
+                        (NumberPicker) layout.findViewById(R.id.digit_2),
+                        (NumberPicker) layout.findViewById(R.id.digit_3),
+                        (NumberPicker) layout.findViewById(R.id.digit_4),
+                        (NumberPicker) layout.findViewById(R.id.digit_5));
+                break;
+            case 6:
+                initializeNumberPickerArray(
+                        (NumberPicker) layout.findViewById(R.id.digit_1),
+                        (NumberPicker) layout.findViewById(R.id.digit_2),
+                        (NumberPicker) layout.findViewById(R.id.digit_3),
+                        (NumberPicker) layout.findViewById(R.id.digit_4),
+                        (NumberPicker) layout.findViewById(R.id.digit_5),
+                        (NumberPicker) layout.findViewById(R.id.digit_6));
+                break;
+            default:
+        }
     }
 
     private void resume() {
@@ -100,6 +134,32 @@ public class PlayFragment extends Fragment {
         beginGameLayout.setVisibility(View.GONE);
 
         pauseLabel.setVisibility(View.VISIBLE);
+    }
+
+    private void initializeSubmitButton() {
+        final Button submitButton = (Button) layout.findViewById(R.id.submit);
+        androidId = Secure.getString(layout.getContext().getContentResolver(),
+                Secure.ANDROID_ID);
+        submitButton.setEnabled(false);
+        SubmitOnClickListener submitListener =
+                new SubmitOnClickListener(layout, numberOfDigits, originalValue, gameData);
+        submitButton.setOnClickListener(submitListener);
+    }
+
+    private void initializePauseGameButton() {
+        final Button pauseButton = (Button) layout.findViewById(R.id.pause);
+        final TextView pauseLabel = (TextView) layout.findViewById(R.id.pause_game_label);
+        pauseLabel.setVisibility(View.GONE);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gameData.isGamePaused()) {
+                    resume();
+                } else {
+                    pause();
+                }
+            }
+        });
     }
 
     private void initializeNewGameButton() {
@@ -156,72 +216,42 @@ public class PlayFragment extends Fragment {
 
     }
 
+    private void initializeNumberPickerArray(NumberPicker... numberPickerArray) {
+        float weight = 1.0f / numberOfDigits;
+        for (int i = 0; i < numberPickerArray.length; i++) {
+            NumberPicker np = numberPickerArray[i];
+            np.setVisibility(View.VISIBLE);
+            np.setMinValue(0);
+            np.setMaxValue(9);
+            np.setValue(0);
+            np.setWrapSelectorWheel(true);
+            np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            LinearLayout linearLayout = (LinearLayout) (layout.findViewById(np.getId()));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(5, 300, weight);
+            linearLayout.setLayoutParams(lp);
+            final int i1 = i;
+            np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                Button submit = (Button) layout.findViewById(R.id.submit);
+
+                @Override
+                public void onValueChange(NumberPicker numberPicker, int oldNum, int newNum) {
+                    gameData.setChar(i1, Character.forDigit(newNum, 10));
+                    if (gameData.allCharactersDifferent() && !gameData.isGameWon()) {
+                        submit.setEnabled(true);
+                    } else {
+                        submit.setEnabled(false);
+                    }
+                }
+            });
+        }
+    }
+
     private void saveLostGameIfNecessary() {
         if (!gameData.isGameWon()) {
             PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
                     -1, 0, Integer.MAX_VALUE);
             dbStorageHelper.insertInDb(lostGame);
             serverRequestHelper.postRequest(lostGame);
-        }
-    }
-
-    private void initializeSubmitButton() {
-        final Button submitButton = (Button) layout.findViewById(R.id.submit);
-        androidId = Secure.getString(layout.getContext().getContentResolver(),
-                Secure.ANDROID_ID);
-        submitButton.setEnabled(false);
-        SubmitOnClickListener submitListener =
-                new SubmitOnClickListener(layout, numberOfDigits, originalValue, gameData);
-        submitButton.setOnClickListener(submitListener);
-    }
-
-    private void reset() {
-        if (numberOfDigits == 0) numberOfDigits = 4; // Base case
-        originalValue = new NewNumberGenerator().generate(numberOfDigits);
-        gameData = new GameData(layout.getContext(), numberOfDigits);
-        initializeSubmitButton();
-        initializeNewGameButton();
-        initializePauseGameButton();
-        clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
-        clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
-        clearNumberPickerLayout((LinearLayout) layout.findViewById(R.id.number_roller));
-        switch (numberOfDigits) {
-            case 2:
-                initializeNumberPickerArray(
-                        (NumberPicker) layout.findViewById(R.id.digit_1),
-                        (NumberPicker) layout.findViewById(R.id.digit_2));
-                break;
-            case 3:
-                initializeNumberPickerArray(
-                        (NumberPicker) layout.findViewById(R.id.digit_1),
-                        (NumberPicker) layout.findViewById(R.id.digit_2),
-                        (NumberPicker) layout.findViewById(R.id.digit_3));
-                break;
-            case 4:
-                initializeNumberPickerArray(
-                        (NumberPicker) layout.findViewById(R.id.digit_1),
-                        (NumberPicker) layout.findViewById(R.id.digit_2),
-                        (NumberPicker) layout.findViewById(R.id.digit_3),
-                        (NumberPicker) layout.findViewById(R.id.digit_4));
-                break;
-            case 5:
-                initializeNumberPickerArray(
-                        (NumberPicker) layout.findViewById(R.id.digit_1),
-                        (NumberPicker) layout.findViewById(R.id.digit_2),
-                        (NumberPicker) layout.findViewById(R.id.digit_3),
-                        (NumberPicker) layout.findViewById(R.id.digit_4),
-                        (NumberPicker) layout.findViewById(R.id.digit_5));
-                break;
-            case 6:
-                initializeNumberPickerArray(
-                        (NumberPicker) layout.findViewById(R.id.digit_1),
-                        (NumberPicker) layout.findViewById(R.id.digit_2),
-                        (NumberPicker) layout.findViewById(R.id.digit_3),
-                        (NumberPicker) layout.findViewById(R.id.digit_4),
-                        (NumberPicker) layout.findViewById(R.id.digit_5),
-                        (NumberPicker) layout.findViewById(R.id.digit_6));
-                break;
-            default:
         }
     }
 
@@ -250,36 +280,4 @@ public class PlayFragment extends Fragment {
         }
     }
 
-    private void initializeNumberPickerArray(NumberPicker... numberPickerArray) {
-        float weight = 1.0f / numberOfDigits;
-        for (int i = 0; i < numberPickerArray.length; i++) {
-            NumberPicker np = numberPickerArray[i];
-            np.setVisibility(View.VISIBLE);
-            np.setMinValue(0);
-            np.setMaxValue(9);
-            np.setValue(0);
-            np.setWrapSelectorWheel(true);
-            np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-            LinearLayout linearLayout = (LinearLayout) (layout.findViewById(np.getId()));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(5, 300, weight);
-            linearLayout.setLayoutParams(lp);
-            final int i1 = i;
-            np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                Button submit = (Button) layout.findViewById(R.id.submit);
-                @Override
-                public void onValueChange(NumberPicker numberPicker, int oldNum, int newNum) {
-                    gameData.setChar(i1, Character.forDigit(newNum, 10));
-                    checkDigits(submit);
-                }
-            });
-        }
-    }
-
-    private void checkDigits(Button submit) {
-        if (gameData.allCharactersDifferent() && !gameData.isGameWon()) {
-            submit.setEnabled(true);
-        } else {
-            submit.setEnabled(false);
-        }
-    }
 }
