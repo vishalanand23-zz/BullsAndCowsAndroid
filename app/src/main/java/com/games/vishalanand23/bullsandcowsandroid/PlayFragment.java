@@ -9,14 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.games.vishalanand23.bullsandcowsandroid.data.GameData;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 import com.games.vishalanand23.bullsandcowsandroid.network.ServerRequestHelper;
-
-import java.util.concurrent.Callable;
 
 public class PlayFragment extends Fragment {
     private int numberOfDigits = 4;
@@ -25,9 +26,7 @@ public class PlayFragment extends Fragment {
     private ServerRequestHelper serverRequestHelper;
     private String androidId;
     private DbStorageHelper dbStorageHelper;
-
-    private volatile boolean winGame = false;
-    private volatile char[] currentValue;
+    private GameData gameData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +37,42 @@ public class PlayFragment extends Fragment {
         serverRequestHelper = new ServerRequestHelper(layout.getContext());
         dbStorageHelper = new DbStorageHelper(layout.getContext());
         return layout;
+    }
+
+    private void initializePauseGameButton(final View layout) {
+        final Button pauseButton = (Button) layout.findViewById(R.id.pause);
+        final ScrollView roundTable = (ScrollView) layout.findViewById(R.id.guess_table_scroll_view);
+        final TextView pauseLabel = (TextView) layout.findViewById(R.id.pause_game_label);
+        final Button submitButton = (Button) layout.findViewById(R.id.submit);
+        final LinearLayout numberPickerLayout = (LinearLayout) layout.findViewById(R.id.number_roller);
+        final LinearLayout newGameLayout = (LinearLayout) layout.findViewById(R.id.new_game_label);
+        final LinearLayout beginGameLayout = (LinearLayout) layout.findViewById(R.id.begin_game);
+        pauseLabel.setVisibility(View.GONE);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gameData.isGamePaused()) {
+                    gameData.resume();
+                    pauseButton.setText(layout.getResources().getString(R.string.pause_button_text));
+                    roundTable.setVisibility(View.VISIBLE);
+                    submitButton.setVisibility(View.VISIBLE);
+                    numberPickerLayout.setVisibility(View.VISIBLE);
+                    newGameLayout.setVisibility(View.VISIBLE);
+                    beginGameLayout.setVisibility(View.VISIBLE);
+                    pauseLabel.setVisibility(View.GONE);
+                } else {
+                    gameData.pause();
+                    pauseButton.setText(layout.getResources().getString(R.string.unpause_button_text));
+                    roundTable.setVisibility(View.GONE);
+                    submitButton.setVisibility(View.INVISIBLE);
+                    numberPickerLayout.setVisibility(View.INVISIBLE);
+                    newGameLayout.setVisibility(View.GONE);
+                    beginGameLayout.setVisibility(View.GONE);
+                    pauseLabel.setVisibility(View.VISIBLE);
+                    submitButton.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void initializeNewGameButton(final View layout) {
@@ -95,7 +130,7 @@ public class PlayFragment extends Fragment {
     }
 
     private void saveLostGameIfNecessary() {
-        if (!winGame) {
+        if (!gameData.isGameWon()) {
             PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
                     -1, 0, Integer.MAX_VALUE);
             dbStorageHelper.insertInDb(lostGame);
@@ -109,25 +144,17 @@ public class PlayFragment extends Fragment {
                 Secure.ANDROID_ID);
         submitButton.setEnabled(false);
         SubmitOnClickListener submitListener =
-                new SubmitOnClickListener(layout, numberOfDigits, originalValue, new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        winGame = true;
-                        submitButton.setEnabled(false);
-                        return null;
-                    }
-                });
+                new SubmitOnClickListener(layout, numberOfDigits, originalValue, gameData);
         submitButton.setOnClickListener(submitListener);
-        submitListener.reset();
     }
 
     private void reset(View layout) {
         if (numberOfDigits == 0) numberOfDigits = 4; // Base case
-        currentValue = new char[numberOfDigits];
         originalValue = new NewNumberGenerator().generate(numberOfDigits);
+        gameData = new GameData(layout.getContext(), numberOfDigits);
         initializeSubmitButton(layout);
         initializeNewGameButton(layout);
-        winGame = false;
+        initializePauseGameButton(layout);
         clearGuessTableLayout((TableLayout) layout.findViewById(R.id.guess_display));
         clearResultLayout((LinearLayout) layout.findViewById(R.id.result_display));
         clearNumberPickerLayout((LinearLayout) layout.findViewById(R.id.number_roller));
@@ -168,9 +195,6 @@ public class PlayFragment extends Fragment {
                         (NumberPicker) layout.findViewById(R.id.digit_6));
                 break;
             default:
-        }
-        for (int i = 0; i < currentValue.length; i++) {
-            currentValue[i] = '0';
         }
     }
 
@@ -217,7 +241,7 @@ public class PlayFragment extends Fragment {
                 Button submit = (Button) view.findViewById(R.id.submit);
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldNum, int newNum) {
-                    currentValue[i1] = Character.forDigit(newNum, 10);
+                    gameData.setChar(i1, Character.forDigit(newNum, 10));
                     checkDigits(submit);
                 }
             });
@@ -225,25 +249,10 @@ public class PlayFragment extends Fragment {
     }
 
     private void checkDigits(Button submit) {
-        if (allCharactersDifferent() && !winGame) {
+        if (gameData.allCharactersDifferent() && !gameData.isGameWon()) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
         }
     }
-
-    private boolean allCharactersDifferent() {
-        for (int i = 0; i < currentValue.length; i++) {
-            for (int j = 0; j < currentValue.length; j++) {
-                if (i == j) {
-                    continue;
-                }
-                if (currentValue[i] == currentValue[j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
 }

@@ -13,4 +13,7 @@
     <string name="digit_4">4 Digit</string>
     <string name="digit_3">3 Digit</string>
     <string name="digit_2">2 Digit</string>
+    <string name="pause_button_text">Pause</string>
+    <string name="unpause_button_text">Resume</string>
+    <string name="pause_game_label">PAUSED GAME</string>
 </resources>

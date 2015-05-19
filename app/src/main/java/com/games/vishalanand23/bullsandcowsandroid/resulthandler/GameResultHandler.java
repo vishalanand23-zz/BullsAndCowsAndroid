@@ -24,7 +24,8 @@ public class GameResultHandler {
         TextView youWin = getTextView(layout.getContext());
         youWin.setText("YOU WIN!");
         youWin.setTextSize(20);
-        youWin.setBackgroundColor(layout.getResources().getColor(R.color.blue));
+        youWin.setBackgroundColor(layout.getResources().getColor(R.color.medium_blue));
+        youWin.setTextColor(layout.getResources().getColor(R.color.white));
         layout.addView(youWin);
 
         TextView rounds = getTextView(layout.getContext());
@@ -44,7 +45,8 @@ public class GameResultHandler {
         TextView score = getTextView(layout.getContext());
         score.setText(numberOfDigits + " Digit Score: "
                 + storageHelper.score(numberOfDigits) / 1000f);
-        score.setBackgroundColor(layout.getResources().getColor(R.color.blue));
+        score.setBackgroundColor(layout.getResources().getColor(R.color.medium_blue));
+        score.setTextColor(layout.getResources().getColor(R.color.white));
         layout.addView(score);
     }
 

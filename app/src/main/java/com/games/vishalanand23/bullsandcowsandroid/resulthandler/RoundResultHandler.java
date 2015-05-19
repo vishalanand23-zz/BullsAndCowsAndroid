@@ -23,20 +23,22 @@ public class RoundResultHandler {
         TableLayout.LayoutParams lp =
                 new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.WRAP_CONTENT);
-
         lp.setMargins(0, 2, 0, 2);
         row.setLayoutParams(lp);
-        row.setBackgroundColor(table.getResources().getColor(R.color.blue));
+        row.setBackgroundColor(table.getResources().getColor(R.color.medium_blue));
         TextView value = getTextView(table.getContext());
         value.setText(currentValue);
+        value.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(value);
 
         TextView bulls = getTextView(table.getContext());
         bulls.setText(String.valueOf(result.getBulls()));
+        bulls.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(bulls);
 
         TextView cows = getTextView(table.getContext());
         cows.setText(String.valueOf(result.getCows()));
+        cows.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(cows);
         table.addView(row, lp);
     }
