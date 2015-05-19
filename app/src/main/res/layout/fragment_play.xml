@@ -110,14 +110,17 @@
 
             <TextView
                     android:text="@string/guessed_number"
+                android:textStyle="bold"
                     android:gravity="center" />
 
                 <TextView
                     android:text="@string/bulls"
+                    android:textStyle="bold"
                     android:gravity="center" />
 
                 <TextView
                     android:text="@string/cows"
+                    android:textStyle="bold"
                     android:gravity="center" />
             </TableRow>
         </TableLayout>
