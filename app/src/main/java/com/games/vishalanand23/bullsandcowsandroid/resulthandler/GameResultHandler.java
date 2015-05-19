@@ -22,7 +22,7 @@ public class GameResultHandler {
                                   int numberOfDigits) {
         clearResultLayout();
         TextView youWin = getTextView(layout.getContext());
-        youWin.setText("YOU WIN");
+        youWin.setText("YOU WIN!");
         youWin.setTextSize(20);
         youWin.setBackgroundColor(layout.getResources().getColor(R.color.light_blue));
         layout.addView(youWin);
