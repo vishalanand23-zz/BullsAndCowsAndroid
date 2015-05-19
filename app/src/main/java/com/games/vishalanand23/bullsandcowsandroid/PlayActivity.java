@@ -72,7 +72,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void reset() {
-        if (numberOfDigits == 0) numberOfDigits = 4; // Base case
+        if (numberOfDigits == 0) numberOfDigits = 2; // Base case
         originalValue = new NewNumberGenerator().generate(numberOfDigits);
         gameData = new GameData(this, numberOfDigits);
         initializeSubmitButton();
