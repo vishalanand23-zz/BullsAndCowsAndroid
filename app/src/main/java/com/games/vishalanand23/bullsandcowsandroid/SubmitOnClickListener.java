@@ -16,7 +16,7 @@ import com.games.vishalanand23.bullsandcowsandroid.resulthandler.GameResultHandl
 import com.games.vishalanand23.bullsandcowsandroid.resulthandler.RoundResultHandler;
 
 public class SubmitOnClickListener implements View.OnClickListener {
-    private final View layout;
+    private final PlayActivity activity;
     private final int numberOfDigits;
     private final String originalValue;
     private final GameData gameData;
@@ -26,19 +26,19 @@ public class SubmitOnClickListener implements View.OnClickListener {
     private final DbStorageHelper dbStorageHelper;
     private final String androidId;
 
-    public SubmitOnClickListener(View layout, int numberOfDigits, String originalValue,
+    public SubmitOnClickListener(PlayActivity activity, int numberOfDigits, String originalValue,
                                  GameData gameData) {
-        this.layout = layout;
+        this.activity = activity;
         this.numberOfDigits = numberOfDigits;
         this.originalValue = originalValue;
         this.gameData = gameData;
-        TableLayout guessTable = (TableLayout) layout.findViewById(R.id.guess_display);
-        LinearLayout resultTable = (LinearLayout) layout.findViewById(R.id.result_display);
+        TableLayout guessTable = (TableLayout) activity.findViewById(R.id.guess_display);
+        LinearLayout resultTable = (LinearLayout) activity.findViewById(R.id.result_display);
         this.roundResulthandler = new RoundResultHandler(guessTable);
         this.gameResultHandler = new GameResultHandler(resultTable);
-        this.serverRequestHelper = new ServerRequestHelper(layout.getContext());
-        this.dbStorageHelper = new DbStorageHelper(layout.getContext());
-        this.androidId = Settings.Secure.getString(layout.getContext().getContentResolver(),
+        this.serverRequestHelper = new ServerRequestHelper(activity);
+        this.dbStorageHelper = new DbStorageHelper(activity);
+        this.androidId = Settings.Secure.getString(activity.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
     }
 
@@ -49,6 +49,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
         roundResulthandler.display(guessedValue, result);
         if (result.isGuessCorrect(numberOfDigits)) {
             gameData.setWin();
+            activity.findViewById(R.id.submit).setEnabled(false);
             int elapsedMillis = gameData.getGameTime();
             PlayResult playResult = new PlayResult(
                     androidId,
@@ -70,7 +71,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
     private char[] fetchCurrentValue() {
         char[] charArray = new char[numberOfDigits];
         for (int i = 0; i < numberOfDigits; i++) {
-            NumberPicker picker = (NumberPicker) layout.findViewById(getScrollerId(i));
+            NumberPicker picker = (NumberPicker) activity.findViewById(getScrollerId(i));
             charArray[i] = Character.forDigit(picker.getValue(), 10);
         }
         return charArray;
@@ -96,7 +97,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
     }
 
     private void forceScrollerDown() {
-        final ScrollView scroll = (ScrollView) layout.findViewById(R.id.guess_table_scroll_view);
+        final ScrollView scroll = (ScrollView) activity.findViewById(R.id.guess_table_scroll_view);
         scroll.post(new Runnable() {
             @Override
             public void run() {

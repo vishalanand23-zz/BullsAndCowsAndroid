@@ -1,21 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.games.vishalanand23.bullsandcowsandroid.PlayActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:id="@+id/play">
+    android:background="@drawable/grainy"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/main_layout">
 
-    <fragment
-        android:name="com.games.vishalanand23.bullsandcowsandroid.PlayFragment"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_play"
-        android:id="@+id/number_picker" />
+        android:id="@+id/new_game_label">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_game_text"
+            style="@style/new_game_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/begin_game"
+        android:layout_below="@+id/new_game_label"
+        android:orientation="horizontal"
+        style="@style/new_game_button_layout">
+
+        <Button
+            android:id="@+id/new_game_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_2"
+            android:textAllCaps="false"
+            android:layout_weight="0.2"
+            android:background="@drawable/new_game_button_background"
+            style="@style/new_game_button" />
+
+        <Button
+            android:id="@+id/new_game_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_3"
+            android:textAllCaps="false"
+            android:layout_weight="0.2"
+            android:background="@drawable/new_game_button_background"
+            style="@style/new_game_button" />
+
+        <Button
+            android:id="@+id/new_game_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_4"
+            android:textAllCaps="false"
+            android:layout_weight="0.2"
+            android:background="@drawable/new_game_button_background"
+            style="@style/new_game_button" />
+
+        <Button
+            android:id="@+id/new_game_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_5"
+            android:textAllCaps="false"
+            android:layout_weight="0.2"
+            android:background="@drawable/new_game_button_background"
+            style="@style/new_game_button" />
+
+        <Button
+            android:id="@+id/new_game_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/digit_6"
+            android:textAllCaps="false"
+            android:layout_weight="0.2"
+            android:background="@drawable/new_game_button_background"
+            style="@style/new_game_button" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pause_game_label"
+        android:layout_below="@+id/begin_game"
+        android:id="@+id/pause_game_label"
+        style="@style/pause_game_text" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/guess_table_scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pause_game_label"
+        android:layout_above="@+id/result_display"
+        style="@style/round_result_layout">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:id="@+id/guess_display">
+
+            <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/round_result_header">
+
+                <TextView
+                    android:text="@string/guessed_number"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <TextView
+                    android:text="@string/bulls"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <TextView
+                    android:text="@string/cows"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/result_display"
+        android:orientation="vertical"
+        android:layout_above="@+id/number_roller"
+        style="@style/game_result_layout"></LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_above="@+id/submit_button_layout"
+        android:id="@+id/number_roller"
+        style="@style/number_picker_layout">
+
+        <NumberPicker
+            android:id="@+id/digit_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/number_picker" />
+
+        <NumberPicker
+            android:id="@+id/digit_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/digit_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/digit_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/digit_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/digit_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:id="@+id/submit_button_layout"
+        android:gravity="center"
+        style="@style/submit_button_layout">
+
+        <Button
+            android:id="@+id/submit"
+            android:text="@string/submit_button_text"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:textSize="22sp"
+            android:background="@drawable/submit_button_background"
+            android:layout_weight="0.60"
+            style="@style/submit_button" />
+
+        <Button
+            android:id="@+id/pause"
+            android:text="@string/pause_button_text"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:background="@drawable/pause_button_background"
+            android:layout_weight="0.40"
+            style="@style/pause_button" />
+    </LinearLayout>
+</RelativeLayout>
