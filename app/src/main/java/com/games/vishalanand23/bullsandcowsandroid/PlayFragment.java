@@ -52,27 +52,36 @@ public class PlayFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (gameData.isGamePaused()) {
-                    gameData.resume();
-                    pauseButton.setText(layout.getResources().getString(R.string.pause_button_text));
-                    roundTable.setVisibility(View.VISIBLE);
-                    submitButton.setVisibility(View.VISIBLE);
-                    numberPickerLayout.setVisibility(View.VISIBLE);
-                    newGameLayout.setVisibility(View.VISIBLE);
-                    beginGameLayout.setVisibility(View.VISIBLE);
-                    pauseLabel.setVisibility(View.GONE);
+                    resume(pauseButton, layout, roundTable, submitButton, numberPickerLayout, newGameLayout, beginGameLayout, pauseLabel);
                 } else {
                     gameData.pause();
-                    pauseButton.setText(layout.getResources().getString(R.string.unpause_button_text));
-                    roundTable.setVisibility(View.GONE);
-                    submitButton.setVisibility(View.INVISIBLE);
-                    numberPickerLayout.setVisibility(View.INVISIBLE);
-                    newGameLayout.setVisibility(View.GONE);
-                    beginGameLayout.setVisibility(View.GONE);
-                    pauseLabel.setVisibility(View.VISIBLE);
-                    submitButton.setEnabled(false);
+                    pause(pauseButton, layout, roundTable, submitButton, numberPickerLayout, newGameLayout, beginGameLayout, pauseLabel);
                 }
             }
         });
+    }
+
+    private void resume(Button pauseButton, View layout, ScrollView roundTable, Button submitButton, LinearLayout numberPickerLayout, LinearLayout newGameLayout, LinearLayout beginGameLayout, TextView pauseLabel) {
+        gameData.resume();
+        pauseButton.setText(layout.getResources().getString(R.string.pause_button_text));
+        roundTable.setVisibility(View.VISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
+        numberPickerLayout.setVisibility(View.VISIBLE);
+        newGameLayout.setVisibility(View.VISIBLE);
+        beginGameLayout.setVisibility(View.VISIBLE);
+
+        pauseLabel.setVisibility(View.GONE);
+    }
+
+    private void pause(Button pauseButton, View layout, ScrollView roundTable, Button submitButton, LinearLayout numberPickerLayout, LinearLayout newGameLayout, LinearLayout beginGameLayout, TextView pauseLabel) {
+        pauseButton.setText(layout.getResources().getString(R.string.unpause_button_text));
+        roundTable.setVisibility(View.GONE);
+        submitButton.setVisibility(View.INVISIBLE);
+        numberPickerLayout.setVisibility(View.INVISIBLE);
+        newGameLayout.setVisibility(View.GONE);
+        beginGameLayout.setVisibility(View.GONE);
+
+        pauseLabel.setVisibility(View.VISIBLE);
     }
 
     private void initializeNewGameButton(final View layout) {
