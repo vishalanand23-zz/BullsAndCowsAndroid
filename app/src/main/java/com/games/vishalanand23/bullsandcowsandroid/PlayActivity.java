@@ -24,7 +24,7 @@ import com.games.vishalanand23.bullsandcowsandroid.network.ServerRequestHelper;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private int numberOfDigits = 4;
+    private int numberOfDigits = 2;
     private String originalValue;
 
     private ServerRequestHelper serverRequestHelper;
