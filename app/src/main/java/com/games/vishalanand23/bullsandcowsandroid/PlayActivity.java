@@ -21,6 +21,8 @@ import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 import com.games.vishalanand23.bullsandcowsandroid.network.ServerRequestHelper;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -253,7 +255,6 @@ public class PlayActivity extends AppCompatActivity {
             np.setVisibility(View.VISIBLE);
             np.setMinValue(0);
             np.setMaxValue(9);
-            np.setValue(i + 1);
             np.setWrapSelectorWheel(true);
             np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             LinearLayout linearLayout = (LinearLayout) (findViewById(np.getId()));
@@ -273,15 +274,8 @@ public class PlayActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
-    }
-
-    private void saveLostGameIfNecessary() {
-        if (!gameData.isGameWon()) {
-            PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
-                    -1, 0, Integer.MAX_VALUE);
-            dbStorageHelper.insertInDb(lostGame);
-            serverRequestHelper.postRequest(lostGame);
+            np.setValue(i);
+            changeValueByOne(np, true);
         }
     }
 
@@ -307,6 +301,34 @@ public class PlayActivity extends AppCompatActivity {
         for (int i = count - 1; i >= 0; i--) {
             View child = linearLayout.getChildAt(i);
             linearLayout.removeView(child);
+        }
+    }
+
+    private void saveLostGameIfNecessary() {
+        if (!gameData.isGameWon()) {
+            PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
+                    -1, 0, Integer.MAX_VALUE);
+            dbStorageHelper.insertInDb(lostGame);
+            serverRequestHelper.postRequest(lostGame);
+        }
+    }
+
+    private void changeValueByOne(final NumberPicker higherPicker, final boolean increment) {
+
+        Method method;
+        try {
+            method = higherPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
+            method.setAccessible(true);
+            method.invoke(higherPicker, increment);
+
+        } catch (final NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (final IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (final IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (final InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 }
