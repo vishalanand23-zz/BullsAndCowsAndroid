@@ -21,9 +21,11 @@ public class GameResultHandler {
                                   DbStorageHelper storageHelper,
                                   int numberOfDigits) {
         clearResultLayout();
-        TextView digits = getTextView(layout.getContext());
-        digits.setText("Number of digits: " + numberOfDigits);
-        layout.addView(digits);
+        TextView youWin = getTextView(layout.getContext());
+        youWin.setText("YOU WIN");
+        youWin.setTextSize(20);
+        youWin.setBackgroundColor(layout.getResources().getColor(R.color.light_blue));
+        layout.addView(youWin);
 
         TextView rounds = getTextView(layout.getContext());
         rounds.setText("Rounds: " + playResult.getNumberOfGuesses());
@@ -33,18 +35,15 @@ public class GameResultHandler {
         time.setText("Time: " + (playResult.getTimeInMillis() / 1000f) + " seconds");
         layout.addView(time);
 
-        TextView numberOfGames = getTextView(layout.getContext());
-        numberOfGames.setText("Games Win/Played: " + storageHelper.numberOfWins(numberOfDigits)
-                + "/" + storageHelper.numberOfGames(numberOfDigits));
-        layout.addView(numberOfGames);
 
         TextView fastestTime = getTextView(layout.getContext());
-        fastestTime.setText("Fastest Time: "
+        fastestTime.setText(numberOfDigits + " Digit Fastest Time: "
                 + (storageHelper.fastestTime(numberOfDigits) / 1000f) + " seconds.");
         layout.addView(fastestTime);
 
         TextView score = getTextView(layout.getContext());
-        score.setText("Score: " + storageHelper.score(numberOfDigits) / 1000f);
+        score.setText(numberOfDigits + " Digit Score: "
+                + storageHelper.score(numberOfDigits) / 1000f);
         score.setBackgroundColor(layout.getResources().getColor(R.color.light_blue));
         layout.addView(score);
     }
