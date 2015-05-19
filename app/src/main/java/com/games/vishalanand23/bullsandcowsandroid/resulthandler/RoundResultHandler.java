@@ -26,7 +26,7 @@ public class RoundResultHandler {
 
         lp.setMargins(0, 2, 0, 2);
         row.setLayoutParams(lp);
-        row.setBackgroundColor(table.getResources().getColor(R.color.light_blue));
+        row.setBackgroundColor(table.getResources().getColor(R.color.blue));
         TextView value = getTextView(table.getContext());
         value.setText(currentValue);
         row.addView(value);
