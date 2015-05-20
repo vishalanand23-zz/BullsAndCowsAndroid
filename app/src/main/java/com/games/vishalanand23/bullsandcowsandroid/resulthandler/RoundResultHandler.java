@@ -12,7 +12,6 @@ import com.games.vishalanand23.bullsandcowsandroid.data.BullsAndCows;
 public class RoundResultHandler {
 
     private final TableLayout table;
-    private boolean isBlue = true;
 
     public RoundResultHandler(TableLayout table) {
         this.table = table;
@@ -23,7 +22,7 @@ public class RoundResultHandler {
         TableLayout.LayoutParams lp =
                 new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, 2, 0, 2);
+        lp.setMargins(0, 4, 0, 0);
         row.setLayoutParams(lp);
         row.setBackgroundColor(table.getResources().getColor(R.color.medium_blue));
         TextView value = getTextView(table.getContext());
