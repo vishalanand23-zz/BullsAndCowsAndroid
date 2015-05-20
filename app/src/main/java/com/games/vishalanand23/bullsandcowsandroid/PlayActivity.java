@@ -29,9 +29,9 @@ public class PlayActivity extends AppCompatActivity {
     private int numberOfDigits = 2;
     private String originalValue;
 
-    private ServerRequestHelper serverRequestHelper;
+    private final ServerRequestHelper serverRequestHelper = new ServerRequestHelper(this);
+    private final DbStorageHelper dbStorageHelper = new DbStorageHelper(this);
     private String androidId;
-    private DbStorageHelper dbStorageHelper;
     private GameData gameData;
 
     @Override
@@ -41,8 +41,9 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         reset();
-        serverRequestHelper = new ServerRequestHelper(this);
-        dbStorageHelper = new DbStorageHelper(this);
+        // Hack to set initial pickers at right place.
+        ((NumberPicker) findViewById(R.id.digit_1)).setValue(1);
+        ((NumberPicker) findViewById(R.id.digit_2)).setValue(2);
     }
 
     @Override
@@ -74,16 +75,15 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void reset() {
-        if (numberOfDigits == 0) numberOfDigits = 2; // Base case
-        originalValue = new NewNumberGenerator().generate(numberOfDigits);
         gameData = new GameData(this, numberOfDigits);
+        originalValue = new NewNumberGenerator().generate(gameData.numberOfDigits());
         initializeSubmitButton();
         initializeNewGameButton();
         initializePauseGameButton();
         clearGuessTableLayout((TableLayout) findViewById(R.id.guess_display));
         clearResultLayout((LinearLayout) findViewById(R.id.result_display));
         clearNumberPickerLayout((LinearLayout) findViewById(R.id.number_roller));
-        switch (numberOfDigits) {
+        switch (gameData.numberOfDigits()) {
             case 2:
                 initializeNumberPickerArray(
                         (NumberPicker) findViewById(R.id.digit_1),
@@ -249,12 +249,13 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void initializeNumberPickerArray(NumberPicker... numberPickerArray) {
-        float weight = 1.0f / numberOfDigits;
-        for (int i = 0; i < numberPickerArray.length; i++) {
+        float weight = 1.0f / gameData.numberOfDigits();
+        for (int i = 0; i < gameData.numberOfDigits(); i++) {
             NumberPicker np = numberPickerArray[i];
             np.setVisibility(View.VISIBLE);
             np.setMinValue(0);
             np.setMaxValue(9);
+            np.setValue(i);
             np.setWrapSelectorWheel(true);
             np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             LinearLayout linearLayout = (LinearLayout) (findViewById(np.getId()));
@@ -274,7 +275,6 @@ public class PlayActivity extends AppCompatActivity {
                     }
                 }
             });
-            np.setValue(i);
             changeValueByOne(np, true);
         }
     }

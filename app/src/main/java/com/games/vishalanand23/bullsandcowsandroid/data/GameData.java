@@ -81,4 +81,8 @@ public class GameData {
     public boolean isGamePaused() {
         return pausedGame;
     }
+
+    public int numberOfDigits() {
+        return numberOfDigits;
+    }
 }
