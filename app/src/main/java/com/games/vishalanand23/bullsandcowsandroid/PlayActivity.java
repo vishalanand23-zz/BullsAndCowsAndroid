@@ -305,9 +305,9 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void saveLostGameIfNecessary() {
-        if (!gameData.isGameWon()) {
+        if (!gameData.isGameWon() && gameData.numberOfRounds() > 0) {
             PlayResult lostGame = new PlayResult(androidId, numberOfDigits, originalValue,
-                    -1, 0, Integer.MAX_VALUE);
+                    gameData.numberOfRounds(), 0, gameData.getGameTime());
             dbStorageHelper.insertInDb(lostGame);
             serverRequestHelper.postRequest(lostGame);
         }
