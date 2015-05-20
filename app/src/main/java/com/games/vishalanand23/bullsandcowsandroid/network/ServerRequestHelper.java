@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class ServerRequestHelper {
     private final Context context;
-    String URL = "http://10.0.2.2:8080/bullsAndCows/rest/insert/result";
+    String URL = "http://ubuntu@ec2-52-24-182-231.us-west-2.compute.amazonaws.com:8080/bullsAndCows/rest/insert/result";
 
     public ServerRequestHelper(Context context) {
         this.context = context;
