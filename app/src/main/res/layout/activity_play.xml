@@ -147,7 +147,7 @@
 
         <Space
             android:layout_width="fill_parent"
-            android:layout_height="3dp" />
+            android:layout_height="1dp" />
 
         <TextView
             android:id="@+id/number_of_digits_text_in_play"
@@ -157,7 +157,7 @@
 
         <Space
             android:layout_width="fill_parent"
-            android:layout_height="3dp" />
+            android:layout_height="1dp" />
 
         <TextView
             android:id="@+id/number_of_rounds_text_in_play"
@@ -167,7 +167,7 @@
 
         <Space
             android:layout_width="fill_parent"
-            android:layout_height="3dp" />
+            android:layout_height="1dp" />
 
         <TextView
             android:id="@+id/time_text_in_play"

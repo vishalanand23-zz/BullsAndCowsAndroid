@@ -23,7 +23,7 @@
     <string name="games_won_text">Games Won</string>
     <string name="fastest_time_text">Fastest Time</string>
     <string name="scores_text">Score</string>
-    <string name="play_game_text">BACK</string>
+    <string name="play_game_text">BACK TO GAME</string>
     <string name="scores_button_text">Score</string>
     <string name="you_win">YOU WIN!</string>
     <string name="action_new_game">New Game</string>
