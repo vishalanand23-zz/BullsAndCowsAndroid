@@ -1,6 +1,5 @@
 package com.games.vishalanand23.bullsandcowsandroid.resulthandler;
 
-import android.content.Context;
 import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,25 +24,25 @@ public class RoundResultHandler {
         lp.setMargins(0, 4, 0, 0);
         row.setLayoutParams(lp);
         row.setBackgroundColor(table.getResources().getColor(R.color.medium_blue));
-        TextView value = getTextView(table.getContext());
+        TextView value = getTextView();
         value.setText(currentValue);
         value.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(value);
 
-        TextView bulls = getTextView(table.getContext());
+        TextView bulls = getTextView();
         bulls.setText(String.valueOf(result.getBulls()));
         bulls.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(bulls);
 
-        TextView cows = getTextView(table.getContext());
+        TextView cows = getTextView();
         cows.setText(String.valueOf(result.getCows()));
         cows.setTextColor(table.getResources().getColor(R.color.white));
         row.addView(cows);
         table.addView(row, lp);
     }
 
-    private TextView getTextView(Context context) {
-        TextView textView = new TextView(context);
+    private TextView getTextView() {
+        TextView textView = new TextView(table.getContext());
         textView.setGravity(Gravity.CENTER);
         return textView;
     }

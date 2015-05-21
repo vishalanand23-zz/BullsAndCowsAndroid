@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -291,7 +290,7 @@ public class PlayActivity extends AppCompatActivity {
         int count = table.getChildCount();
         for (int i = count - 1; i >= 1; i--) { // 1st row is header, so don't clear.
             View child = table.getChildAt(i);
-            if (child instanceof TableRow) ((ViewGroup) child).removeAllViews();
+            if (child instanceof TableRow) table.removeView(child);
         }
     }
 
