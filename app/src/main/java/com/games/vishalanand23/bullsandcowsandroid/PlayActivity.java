@@ -1,5 +1,6 @@
 package com.games.vishalanand23.bullsandcowsandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -34,18 +35,6 @@ public class PlayActivity extends AppCompatActivity {
     private GameData gameData;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        new DbStorageHelper(this).createFile();
-//        new DbStorageHelper(this).sanitizeDb();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
-        reset();
-        // Hack to set initial pickers at right place.
-        ((NumberPicker) findViewById(R.id.digit_1)).setValue(1);
-        ((NumberPicker) findViewById(R.id.digit_2)).setValue(2);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action postRequest if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -60,7 +49,12 @@ public class PlayActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_scores) {
+            Bundle sendBundle = new Bundle();
+            sendBundle.putInt("numberOfDigits", 2);
+            Intent i = new Intent(PlayActivity.this, ScoresActivity.class);
+            i.putExtras(sendBundle);
+            startActivity(i);
             return true;
         }
 
@@ -68,8 +62,22 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        new DbStorageHelper(this).createFile();
+//        new DbStorageHelper(this).sanitizeDb();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_play);
+        reset();
+        // Hack to set initial pickers at right place.
+        ((NumberPicker) findViewById(R.id.digit_1)).setValue(1);
+        ((NumberPicker) findViewById(R.id.digit_2)).setValue(2);
+    }
+
+    @Override
     public void onPause() {
-        pause();
+        if (!gameData.isGameWon()) {
+            pause();
+        }
         super.onPause();
     }
 
@@ -79,8 +87,9 @@ public class PlayActivity extends AppCompatActivity {
         initializeSubmitButton();
         initializeNewGameButton();
         initializePauseGameButton();
+        initializeScoreButton();
         clearGuessTableLayout((TableLayout) findViewById(R.id.guess_display));
-        clearResultLayout((LinearLayout) findViewById(R.id.result_display));
+        findViewById(R.id.result_display).setVisibility(View.GONE);
         clearNumberPickerLayout((LinearLayout) findViewById(R.id.number_roller));
         switch (gameData.numberOfDigits()) {
             case 2:
@@ -193,6 +202,20 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
+    private void initializeScoreButton() {
+        final Button button = (Button) findViewById(R.id.scores_button_in_play);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle sendBundle = new Bundle();
+                sendBundle.putInt("numberOfDigits", numberOfDigits);
+                Intent i = new Intent(PlayActivity.this, ScoresActivity.class);
+                i.putExtras(sendBundle);
+                startActivity(i);
+            }
+        });
+    }
+
     private void initializeNewGameButton() {
         // TODO: Figure out how to pass winGame dynamically and then extract this to a new class.
         Button newGameButton2 = (Button) findViewById(R.id.new_game_2);
@@ -291,15 +314,6 @@ public class PlayActivity extends AppCompatActivity {
         for (int i = count - 1; i >= 1; i--) { // 1st row is header, so don't clear.
             View child = table.getChildAt(i);
             if (child instanceof TableRow) table.removeView(child);
-        }
-    }
-
-    private void clearResultLayout(LinearLayout linearLayout) {
-        linearLayout.setVisibility(View.INVISIBLE);
-        int count = linearLayout.getChildCount();
-        for (int i = count - 1; i >= 0; i--) {
-            View child = linearLayout.getChildAt(i);
-            linearLayout.removeView(child);
         }
     }
 

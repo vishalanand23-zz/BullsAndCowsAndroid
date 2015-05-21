@@ -11,8 +11,9 @@
         <!--<item name="android:background">@color/green</item>-->
     </style>
 
+    <!-- Play Activity -->
+
     <style name="submit_button_layout">
-        <!--<item name="android:background">@color/blue</item>-->
     </style>
 
     <style name="new_game_text">
@@ -68,6 +69,53 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <!--Scores Activity-->
+    <style name="scores_text">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="scores_table">
+        <item name="android:background">@drawable/customborder</item>
+    </style>
+
+    <style name="scores_row">
+        <item name="android:background">@color/medium_blue</item>
+    </style>
+
+    <style name="scores_result_text_in_scores">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/medium_blue</item>
+    </style>
+
+    <style name="scores_explanation_text_view">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="scores_result_text_in_play">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/medium_blue</item>
+    </style>
+
+    <style name="you_win_text_in_play">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/medium_blue</item>
     </style>
 
 </resources>

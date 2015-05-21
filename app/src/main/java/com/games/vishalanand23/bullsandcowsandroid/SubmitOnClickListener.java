@@ -2,7 +2,6 @@ package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.provider.Settings;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -33,9 +32,8 @@ public class SubmitOnClickListener implements View.OnClickListener {
         this.originalValue = originalValue;
         this.gameData = gameData;
         TableLayout guessTable = (TableLayout) activity.findViewById(R.id.guess_display);
-        LinearLayout resultTable = (LinearLayout) activity.findViewById(R.id.result_display);
         this.roundResulthandler = new RoundResultHandler(guessTable);
-        this.gameResultHandler = new GameResultHandler(resultTable);
+        this.gameResultHandler = new GameResultHandler(activity);
         this.serverRequestHelper = new ServerRequestHelper(activity);
         this.dbStorageHelper = new DbStorageHelper(activity);
         this.androidId = Settings.Secure.getString(activity.getContentResolver(),
@@ -60,7 +58,7 @@ public class SubmitOnClickListener implements View.OnClickListener {
                     elapsedMillis);
             dbStorageHelper.insertInDb(playResult);
             serverRequestHelper.postRequest(playResult);
-            gameResultHandler.displayGameResult(playResult, dbStorageHelper, numberOfDigits);
+            gameResultHandler.displayGameResult(playResult, numberOfDigits);
         } else {
             gameData.roundOver();
         }

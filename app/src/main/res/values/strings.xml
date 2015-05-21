@@ -2,6 +2,7 @@
     <string name="app_name">Bulls And Cows</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_score">Score</string>
     <string name="submit_button_text">GUESS</string>
     <string name="new_game_text">NEW GAME</string>
     <string name="cows">Cows</string>
@@ -16,4 +17,14 @@
     <string name="pause_button_text">Pause</string>
     <string name="unpause_button_text">Resume</string>
     <string name="pause_game_label">PAUSED GAME</string>
+    <string name="scores_label">SCORE</string>
+    <string name="number_of_digits_text">Number Of Digits</string>
+    <string name="games_played_text">Games Played</string>
+    <string name="games_won_text">Games Won</string>
+    <string name="fastest_time_text">Fastest Time</string>
+    <string name="scores_text">Score</string>
+    <string name="play_game_text">BACK</string>
+    <string name="scores_button_text">Score</string>
+    <string name="you_win">YOU WIN!</string>
+    <string name="action_new_game">New Game</string>
 </resources>

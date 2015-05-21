@@ -133,7 +133,66 @@
         android:id="@+id/result_display"
         android:orientation="vertical"
         android:layout_above="@+id/number_roller"
-        style="@style/game_result_layout"></LinearLayout>
+        style="@style/game_result_layout">
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:text="@string/you_win"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/you_win_text_in_play" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:id="@+id/number_of_digits_text_in_play"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/scores_result_text_in_play" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:id="@+id/number_of_rounds_text_in_play"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/scores_result_text_in_play" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:id="@+id/time_text_in_play"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/scores_result_text_in_play" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="3dp" />
+
+        <Button
+            android:id="@+id/scores_button_in_play"
+            android:text="@string/scores_button_text"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:textSize="22sp"
+            android:background="@drawable/submit_button_background"
+            style="@style/submit_button" />
+
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
