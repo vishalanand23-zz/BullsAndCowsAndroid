@@ -1,10 +1,16 @@
 package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +24,15 @@ import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 public class RulesActivity extends AppCompatActivity {
 
     private Language language;
+
+    private void styleActionBar() {
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.medium_blue)));
+        Spannable text = new SpannableString(bar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        bar.setTitle(text);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,6 +70,7 @@ public class RulesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules);
+        styleActionBar();
         initializeCheckBox();
         language = Language.ENGLISH;
         initializeLanguageButton((Button) findViewById(R.id.english), Language.ENGLISH);

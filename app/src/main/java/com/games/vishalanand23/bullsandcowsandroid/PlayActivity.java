@@ -1,10 +1,16 @@
 package com.games.vishalanand23.bullsandcowsandroid;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +39,15 @@ public class PlayActivity extends AppCompatActivity {
     private final DbStorageHelper dbStorageHelper = new DbStorageHelper(this);
     private String androidId;
     private GameData gameData;
+
+    private void styleActionBar() {
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.medium_blue)));
+        Spannable text = new SpannableString(bar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        bar.setTitle(text);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,6 +88,7 @@ public class PlayActivity extends AppCompatActivity {
 //        new DbStorageHelper(this).sanitizeDb();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        styleActionBar();
         if (new DbStorageHelper(this).checkRules()) {
             Intent i = new Intent(PlayActivity.this, RulesActivity.class);
             startActivity(i);

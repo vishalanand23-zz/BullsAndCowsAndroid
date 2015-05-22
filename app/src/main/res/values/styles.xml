@@ -2,13 +2,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="android:actionBarStyle">@style/action_bar</item>
-        <!--<item name="android:background">@color/grey</item>-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:actionBarStyle">@style/action_bar</item>
     </style>
 
     <style name="action_bar" parent="Theme.AppCompat.Light">
-        <!--<item name="android:background">@color/green</item>-->
+        <item name="android:background">@color/medium_blue</item>
     </style>
 
     <!-- Play Activity -->
