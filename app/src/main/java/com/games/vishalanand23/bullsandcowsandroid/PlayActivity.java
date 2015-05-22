@@ -22,6 +22,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.games.vishalanand23.bullsandcowsandroid.data.GameData;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
@@ -105,6 +106,7 @@ public class PlayActivity extends AppCompatActivity {
             pause();
         }
         super.onPause();
+        AppEventsLogger.activateApp(this);
     }
 
     @Override
@@ -113,6 +115,7 @@ public class PlayActivity extends AppCompatActivity {
         if (gameData.numberOfRounds() == 0) {
             resume();
         }
+        AppEventsLogger.deactivateApp(this);
     }
 
     private void reset() {
