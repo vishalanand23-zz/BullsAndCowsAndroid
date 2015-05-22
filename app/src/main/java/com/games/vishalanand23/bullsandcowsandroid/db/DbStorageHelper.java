@@ -14,7 +14,7 @@ import java.io.FileWriter;
 
 public class DbStorageHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "bulls_and_cows";
     private static final String PLAY_TABLE_NAME = "play_results";
     private static final String ID = "_id";
@@ -58,8 +58,8 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         Log.w(DbStorageHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS " + PLAY_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + RULES_CHECKBOX_TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + PLAY_TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + RULES_CHECKBOX_TABLE_NAME);
         onCreate(db);
     }
 
