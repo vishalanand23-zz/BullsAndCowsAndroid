@@ -86,7 +86,7 @@
     </style>
 
     <!--Scores Activity-->
-    <style name="scores_or_rules_heading_text">
+    <style name="scores_heading_text">
     <item name="android:textColor">@color/black</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
@@ -112,17 +112,28 @@
     </style>
 
     <style name="scores_explanation_text_view">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="rules_heading_text">RULES</style>
+    <!--Rules Activity-->
+
+    <style name="rules_heading_text">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 
     <style name="actual_rules">
-        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left</item>
     </style>
 
 </resources>

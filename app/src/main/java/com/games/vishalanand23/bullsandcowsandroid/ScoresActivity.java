@@ -91,18 +91,15 @@ public class ScoresActivity extends AppCompatActivity {
         int gamesPlayed = storageHelper.numberOfGames(number);
         int gamesWon = storageHelper.numberOfWins(number);
         String fastestTimeString = storageHelper.fastestTime(number) < 0
-                ? "N.A." : String.valueOf((storageHelper.fastestTime(number)) / 1000f);
+                ? "N.A." : String.valueOf((storageHelper.fastestTime(number)) / 1000f) + " sec";
         String scoreString = storageHelper.fastestTime(number) < 0
                 ? "N.A." : String.valueOf((storageHelper.score(number)) / 1000f);
-        String scoreExplanation = "Score for " + number +
-                " digits is average time of fastest 50 games won for " + number + " digits.";
 
         ((TextView) findViewById(R.id.number_of_digits_value)).setText(String.valueOf(number));
         ((TextView) findViewById(R.id.games_played_value)).setText(String.valueOf(gamesPlayed));
         ((TextView) findViewById(R.id.games_won_value)).setText(String.valueOf(gamesWon));
         ((TextView) findViewById(R.id.fastest_time_value)).setText(fastestTimeString);
         ((TextView) findViewById(R.id.scores_value)).setText(scoreString);
-        ((TextView) findViewById(R.id.scores_explanation)).setText(scoreExplanation);
     }
 
     private void initializePlayBackButton(Button button) {

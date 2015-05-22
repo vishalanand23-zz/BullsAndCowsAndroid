@@ -23,7 +23,7 @@
     <string name="games_won_text">Games Won</string>
     <string name="fastest_time_text">Fastest Time</string>
     <string name="scores_text">Score</string>
-    <string name="play_game_text">BACK TO GAME</string>
+    <string name="play_game_text">PLAY</string>
     <string name="scores_button_text">Score</string>
     <string name="you_win">YOU WIN!</string>
     <string name="action_new_game">New Game</string>
@@ -33,8 +33,26 @@
     <string name="hindi">Hindi</string>
     <string name="spanish">Spanish</string>
     <string name="check_open_rules">Open rules page on app startup.</string>
-    <string name="rules_in_english">ENGLISH ENGLISH ENGLISH</string>
-    <string name="rules_in_hindi">HINDI HINDI HINDI</string>
-    <string name="rules_in_spanish">SPANISH SPANISH SPANISH</string>
-    <string name="play_game_text_in_rules">BACK TO GAME</string>
+    <string name="rules_in_english">
+        "The mobile will choose a number having all digits different. Your aim is to find out that unknown number. \r\n
+        For this you will start with a guess, and mobile will respond in number of bulls and cows. \r\n
+        Bulls: number of digits common in your guess and the number chosen by mobile which are at the right position. \r\n
+        Cows: number of digits common in your guess and the number chosen by mobile which are at the wrong position. \r\n
+        Ex: Suppose mobile chooses: 1620 which you have to find out. You guess: 7124 then \r\n
+        Bulls: 1. Guessed number and unknown number has digit: \'2\' common and at the same position. \r\n
+        Cows: 1. Guessed number and unknown number has digit: \'1\' common at different positions. \r\n
+        Keep guessing until you get all the digits correct at the right position.
+    </string>
+    <string name="rules_in_hindi">मोबाइल एक नम्बर का चयन करेगा जिसके सारे अंक अलग है । अपने उद्देश्य अज्ञात नम्बर पता लगाने का है । \ r\n\ इसके लिए आपको एक अनुमान के साथ शुरू करना होगा और मोबाइल  Bulls और Cows की संख्या में जवाब देगा। \r\n Bulls : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक जो सही स्थिति में हैं । \r\nCows : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक और जो ग़लत स्थिति में हैं । \r\nउदहारण : मोबाइल का नम्बर है: 1620 और आपका अनुमान नम्बर है: 7124 तो \r\nBulls : 1. अंक : \'2\' दोनों नम्बर में आम है और एक ही स्थिति में है । \r\nCows : 1. अंक : \'1\' दोनों नम्बर में आम है और अलग स्थिति में है । \r\nआप अनुमान लगाते रहे जब तक सारे अंक सही ना हो जाए ।।</string>
+
+    <string name="rules_in_spanish">El móvil va a elegir un número. Su objetivo es descubrir ese número desconocido. \r\n
+        Para ello, se iniciará con una suposición, y móviles , responderemos en el número de toros y vacas . \r\n
+        Bulls : número de dígitos comunes en su respuesta y el número elegido por el móvil que están en la posición correcta. \r\n
+        Cows : número de dígitos comunes en su respuesta y el número elegido por el móvil que se encuentran en la posición incorrecta. \r\n
+        Ejemplo: Supongamos que elige los teléfonos : 1620 el que tienes que saber . Usted adivinar : 7124 entonces \r\n
+        Bulls : 1. Número Adivinado y número desconocido tiene dígitos : \'2\' común y en la misma posición . \r\n
+        Vacas: 1. Número Adivinado y número desconocido tiene dígitos : \'1\' común en diferentes posiciones . \r\n
+        Mantenga adivinar hasta que obtenga todos los dígitos correctos en la posición correcta</string>
+    <string name="play_game_text_in_rules">PLAY</string>
+    <string name="score_explanation_in_scores">Score is average time of fastest 50 games won.</string>
 </resources>

@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/scores_label"
-            style="@style/scores_or_rules_heading_text" />
+            style="@style/scores_heading_text" />
     </LinearLayout>
 
     <LinearLayout
@@ -173,26 +173,24 @@
                 android:id="@+id/scores_value"
                 style="@style/scores_result_text_in_scores" />
         </TableRow>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/score_explanation_in_scores"
+            style="@style/scores_explanation_text_view" />
+
     </TableLayout>
-
-    <Space
-        android:layout_width="fill_parent"
-        android:layout_height="20dp"
-        android:id="@+id/space_between_table_and_score_explanation"
-        android:layout_below="@+id/scores_display_table" />
-
-    <TextView
-        android:id="@+id/scores_explanation"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="@style/scores_explanation_text_view"
-        android:layout_below="@+id/space_between_table_and_score_explanation" />
 
     <Space
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:id="@+id/space_between_score_explanation_and_back_to_play"
-        android:layout_below="@+id/scores_explanation" />
+        android:layout_below="@+id/scores_display_table" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

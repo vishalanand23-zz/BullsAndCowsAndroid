@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,13 +69,13 @@ public class RulesActivity extends AppCompatActivity {
         TextView rulesView = (TextView) findViewById(R.id.actual_rules);
         switch (language) {
             case ENGLISH:
-                rulesView.setText(R.string.rules_in_english);
+                rulesView.setText(getResources().getString(R.string.rules_in_english));
                 break;
             case HINDI:
-                rulesView.setText(R.string.rules_in_hindi);
+                rulesView.setText(Html.fromHtml(getResources().getString(R.string.rules_in_hindi)));
                 break;
             case SPANISH:
-                rulesView.setText(R.string.rules_in_spanish);
+                rulesView.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));
                 break;
         }
     }

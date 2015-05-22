@@ -23,7 +23,7 @@ public class GameResultHandler {
         numberOfRoundsView.setText("Number of Rounds: " + playResult.getNumberOfGuesses());
         TextView timeTextView =
                 (TextView) activity.findViewById(R.id.time_text_in_play);
-        timeTextView.setText("Time: " + (playResult.getTimeInMillis() / 1000f) + " seconds");
+        timeTextView.setText("Time: " + (playResult.getTimeInMillis() / 1000f) + " sec");
         activity.findViewById(R.id.result_display).setVisibility(View.VISIBLE);
     }
 }
