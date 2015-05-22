@@ -94,7 +94,7 @@ public class RulesActivity extends AppCompatActivity {
     }
 
     private void initializeCheckBox() {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.check_rules);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.check_rules);
         final DbStorageHelper dbStorageHelper = new DbStorageHelper(this);
         checkBox.setChecked(dbStorageHelper.checkRules());
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -73,6 +73,10 @@ public class PlayActivity extends AppCompatActivity {
 //        new DbStorageHelper(this).sanitizeDb();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        if (new DbStorageHelper(this).checkRules()) {
+            Intent i = new Intent(PlayActivity.this, RulesActivity.class);
+            startActivity(i);
+        }
         reset();
         // Hack to set initial pickers at right place.
         ((NumberPicker) findViewById(R.id.digit_1)).setValue(1);
@@ -85,6 +89,14 @@ public class PlayActivity extends AppCompatActivity {
             pause();
         }
         super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (gameData.numberOfRounds() == 0) {
+            resume();
+        }
     }
 
     private void reset() {
