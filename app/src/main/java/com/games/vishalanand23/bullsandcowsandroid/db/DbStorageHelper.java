@@ -14,9 +14,9 @@ import java.io.FileWriter;
 
 public class DbStorageHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "bulls_and_cows";
-    private static final String TABLE_NAME = "play_results";
+    private static final String PLAY_TABLE_NAME = "play_results";
     private static final String ID = "_id";
     private static final String DEVICE_ID = "device" + ID;
     private static final String NUM_OF_DIGITS = "num_of_digits";
@@ -24,8 +24,10 @@ public class DbStorageHelper extends SQLiteOpenHelper {
     private static final String NUMBER_OF_GUESSES = "number_of_guesses";
     private static final String WIN_GAME = "win_game";
     private static final String TIME_IN_MILLIS = "time_in_millis";
-    private static final String DICTIONARY_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+    private static final String NUMBER_IN_SCORE = "50";
+
+    private static final String PLAY_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + PLAY_TABLE_NAME + " (" +
                     ID + " INTEGER primary key autoincrement," +
                     DEVICE_ID + " TEXT ," +
                     NUM_OF_DIGITS + " INTEGER ," +
@@ -33,7 +35,13 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                     NUMBER_OF_GUESSES + " INTEGER ," +
                     WIN_GAME + " INTEGER ," +
                     TIME_IN_MILLIS + " INTEGER );";
-    private static final String NUMBER_IN_SCORE = "50";
+
+    private static final String CHECKED = "checked";
+    private static final String RULES_CHECKBOX_TABLE_NAME = "rules_check";
+    private static final String RULES_CHECKBOX_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + RULES_CHECKBOX_TABLE_NAME + " (" +
+                    ID + " INTEGER primary key autoincrement," +
+                    CHECKED + " INTEGER);";
 
     public DbStorageHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,7 +49,8 @@ public class DbStorageHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DICTIONARY_TABLE_CREATE);
+        db.execSQL(PLAY_TABLE_CREATE);
+        db.execSQL(RULES_CHECKBOX_TABLE_CREATE);
     }
 
     @Override
@@ -49,7 +58,8 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         Log.w(DbStorageHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS: " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PLAY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + RULES_CHECKBOX_TABLE_NAME);
         onCreate(db);
     }
 
@@ -61,14 +71,14 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         values.put(NUMBER_OF_GUESSES, playResult.getNumberOfGuesses());
         values.put(WIN_GAME, playResult.getWinGame());
         values.put(TIME_IN_MILLIS, playResult.getTimeInMillis());
-        getWritableDatabase().insert(TABLE_NAME, null, values);
+        getWritableDatabase().insert(PLAY_TABLE_NAME, null, values);
     }
 
     public int fastestTime(int numberOfDigits) {
         String[] projection = {TIME_IN_MILLIS};
         String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
+                PLAY_TABLE_NAME,
                 projection,
                 WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
                 whereArgs,
@@ -76,17 +86,39 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                 null,
                 TIME_IN_MILLIS,
                 "1");
-        cursor.moveToFirst();
-        int fastestTime = cursor.getInt(0);
-        cursor.close();
-        return fastestTime;
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int fastestTime = cursor.getInt(0);
+            cursor.close();
+            return fastestTime;
+        } else {
+            return -1;
+        }
+    }
+
+    public long score(int numberOfDigits) {
+        String subQuery = "select avg(" + TIME_IN_MILLIS + ") from ( select " + TIME_IN_MILLIS
+                + " from " + PLAY_TABLE_NAME + " where " + WIN_GAME + " = 1 AND " + NUM_OF_DIGITS
+                + " = " + numberOfDigits + " order by " + TIME_IN_MILLIS
+                + " limit " + NUMBER_IN_SCORE + ") as t";
+        String[] args = {};
+        Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int score = cursor.getInt(0);
+            cursor.close();
+            return score;
+        } else {
+            cursor.close();
+            return -1;
+        }
     }
 
     public int numberOfGames(int numberOfDigits) {
         String[] projection = {ID};
         String[] whereArgs = {Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
+                PLAY_TABLE_NAME,
                 projection,
                 NUM_OF_DIGITS + " = ? ",
                 whereArgs,
@@ -102,7 +134,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         String[] projection = {ID};
         String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
         Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
+                PLAY_TABLE_NAME,
                 projection,
                 WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
                 whereArgs,
@@ -114,31 +146,53 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         return number;
     }
 
-    public long score(int numberOfDigits) {
-        String subQuery = "select avg(" + TIME_IN_MILLIS + ") from ( select " + TIME_IN_MILLIS
-                + " from " + TABLE_NAME + " where " + WIN_GAME + " = 1 AND " + NUM_OF_DIGITS
-                + " = " + numberOfDigits + " order by " + TIME_IN_MILLIS
-                + " limit " + NUMBER_IN_SCORE + ") as t";
-        String[] args = {};
-        Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
-        cursor.moveToFirst();
-        int score = cursor.getInt(0);
-        cursor.close();
-        return score;
+    public boolean checkRules() {
+        String[] projection = {CHECKED};
+        Cursor cursor = getReadableDatabase().query(
+                RULES_CHECKBOX_TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
+        if (cursor.getCount() == 0) {
+            setRulesCheckedTable(true);
+            cursor.close();
+            return true;
+        } else {
+            cursor.moveToFirst();
+            boolean ret = cursor.getInt(0) == 1;
+            cursor.close();
+            return ret;
+        }
+    }
+
+    public void setRulesCheckedTable(boolean b) {
+        cleanCheckRulesTable();
+        int check = b ? 1 : 0;
+        ContentValues values = new ContentValues();
+        values.put(CHECKED, check);
+        getWritableDatabase().insert(RULES_CHECKBOX_TABLE_NAME, null, values);
+    }
+
+    private void cleanCheckRulesTable() {
+        String where = ID + ">" + "0";
+        getWritableDatabase().delete(RULES_CHECKBOX_TABLE_NAME, where, null);
     }
 
     public void sanitizeDb() {
         ContentValues newValues = new ContentValues();
         newValues.put(TIME_IN_MILLIS, 2147483647);
 
-        getWritableDatabase().update(TABLE_NAME, newValues, "time_in_millis<0", null);
+        getWritableDatabase().update(PLAY_TABLE_NAME, newValues, "time_in_millis<0", null);
 
-        getWritableDatabase().delete(TABLE_NAME, "length(playing_number)" + "<" + "4", null);
+        getWritableDatabase().delete(PLAY_TABLE_NAME, "length(playing_number)" + "<" + "4", null);
     }
 
     public void createFile() {
         Cursor cursor = getReadableDatabase().query(
-                TABLE_NAME,
+                PLAY_TABLE_NAME,
                 null,
                 null,
                 null,

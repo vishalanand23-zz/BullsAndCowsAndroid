@@ -5,6 +5,9 @@
         android:id="@+id/action_scores"
         android:title="@string/action_score"
         android:orderInCategory="100" app:showAsAction="never" />
-    <!--<item android:id="@+id/action_new_game" android:title="@string/action_new_game"-->
-    <!--android:orderInCategory="100" app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_rules"
+        android:title="@string/action_rules"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

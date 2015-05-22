@@ -58,6 +58,12 @@ public class PlayActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_rules) {
+            Intent i = new Intent(PlayActivity.this, RulesActivity.class);
+            startActivity(i);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -334,13 +340,8 @@ public class PlayActivity extends AppCompatActivity {
             method.setAccessible(true);
             method.invoke(higherPicker, increment);
 
-        } catch (final NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (final IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (final IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (final InvocationTargetException e) {
+        } catch (final NoSuchMethodException | IllegalArgumentException |
+                IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

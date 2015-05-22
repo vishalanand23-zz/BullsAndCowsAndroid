@@ -27,4 +27,14 @@
     <string name="scores_button_text">Score</string>
     <string name="you_win">YOU WIN!</string>
     <string name="action_new_game">New Game</string>
+    <string name="action_rules">Rules</string>
+    <string name="rules_label">RULES</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Spanish</string>
+    <string name="check_open_rules">Open rules page on app startup.</string>
+    <string name="rules_in_english">ENGLISH ENGLISH ENGLISH</string>
+    <string name="rules_in_hindi">HINDI HINDI HINDI</string>
+    <string name="rules_in_spanish">SPANISH SPANISH SPANISH</string>
+    <string name="play_game_text_in_rules">PLAY</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.games.vishalanand23.bullsandcowsandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,13 @@ public class ScoresActivity extends AppCompatActivity {
             findViewById(R.id.score_button_4).setEnabled(true);
             findViewById(R.id.score_button_5).setEnabled(true);
             findViewById(R.id.score_button_6).setEnabled(true);
+            return true;
+        }
+
+        if (id == R.id.action_rules) {
+            Intent i = new Intent(ScoresActivity.this, RulesActivity.class);
+            startActivity(i);
+            finish();
             return true;
         }
 
@@ -82,16 +90,18 @@ public class ScoresActivity extends AppCompatActivity {
         DbStorageHelper storageHelper = new DbStorageHelper(this);
         int gamesPlayed = storageHelper.numberOfGames(number);
         int gamesWon = storageHelper.numberOfWins(number);
-        float fastestTime = (storageHelper.fastestTime(number)) / 1000f;
-        float score = (storageHelper.score(number)) / 1000f;
+        String fastestTimeString = storageHelper.fastestTime(number) < 0
+                ? "N.A." : String.valueOf((storageHelper.fastestTime(number)) / 1000f);
+        String scoreString = storageHelper.fastestTime(number) < 0
+                ? "N.A." : String.valueOf((storageHelper.score(number)) / 1000f);
         String scoreExplanation = "Score for " + number +
                 " digits is average time of fastest 50 games won for " + number + " digits.";
 
         ((TextView) findViewById(R.id.number_of_digits_value)).setText(String.valueOf(number));
         ((TextView) findViewById(R.id.games_played_value)).setText(String.valueOf(gamesPlayed));
         ((TextView) findViewById(R.id.games_won_value)).setText(String.valueOf(gamesWon));
-        ((TextView) findViewById(R.id.fastest_time_value)).setText(String.valueOf(fastestTime));
-        ((TextView) findViewById(R.id.scores_value)).setText(String.valueOf(score));
+        ((TextView) findViewById(R.id.fastest_time_value)).setText(fastestTimeString);
+        ((TextView) findViewById(R.id.scores_value)).setText(scoreString);
         ((TextView) findViewById(R.id.scores_explanation)).setText(scoreExplanation);
     }
 

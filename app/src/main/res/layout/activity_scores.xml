@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/scores_label"
-            style="@style/scores_text" />
+            style="@style/scores_or_rules_heading_text" />
     </LinearLayout>
 
     <LinearLayout
