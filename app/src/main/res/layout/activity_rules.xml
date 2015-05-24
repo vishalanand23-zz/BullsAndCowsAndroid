@@ -76,11 +76,287 @@
         android:layout_below="@+id/space_between_buttons_and_rules"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/actual_rules"
-            style="@style/actual_rules" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actual_rules_pre"
+                style="@style/actual_rules_pre" />
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1,2,3,4"
+                style="@style/round_result_layout"
+                android:id="@+id/guess_display_rules">
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+
+                    <TextView
+                        android:text="@string/secret"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/guessed_number"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/bulls"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/cows"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/explanation"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+                </TableRow>
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="12"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/no_digit_common_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="34"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/no_digit_common_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="56"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/no_digit_common_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="78"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="1"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/common_7_wrong_pos_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="09"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="1"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/common_0_right_pos_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="89"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="@string/no_digit_common_english"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/rules_table_row_values">
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="07"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="2"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="0"
+                        style="@style/rules_text_values"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:text="YOU WIN!"
+                        style="@style/rules_text_values"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actual_rules_post"
+                style="@style/actual_rules_post" />
+        </LinearLayout>
     </ScrollView>
 
     <Space

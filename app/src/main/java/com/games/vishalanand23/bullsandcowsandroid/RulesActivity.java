@@ -82,16 +82,18 @@ public class RulesActivity extends AppCompatActivity {
     }
 
     private void addRulesText() {
-        TextView rulesView = (TextView) findViewById(R.id.actual_rules);
+        TextView rulesViewPre = (TextView) findViewById(R.id.actual_rules_pre);
+        TextView rulesViewPost = (TextView) findViewById(R.id.actual_rules_post);
         switch (language) {
             case ENGLISH:
-                rulesView.setText(getResources().getString(R.string.rules_in_english));
+                rulesViewPre.setText(getResources().getString(R.string.rules_in_english_pre));
+                rulesViewPost.setText(getResources().getString(R.string.rules_in_english_post));
                 break;
             case HINDI:
-                rulesView.setText(Html.fromHtml(getResources().getString(R.string.rules_in_hindi)));
+                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_hindi)));
                 break;
             case SPANISH:
-                rulesView.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));
+                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));
                 break;
         }
     }
