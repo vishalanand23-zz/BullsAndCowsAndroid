@@ -63,6 +63,15 @@ public class RulesActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_share) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_string));
+            startActivity(shareIntent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

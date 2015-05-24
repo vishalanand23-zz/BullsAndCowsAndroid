@@ -10,4 +10,10 @@
         android:title="@string/action_rules"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>
