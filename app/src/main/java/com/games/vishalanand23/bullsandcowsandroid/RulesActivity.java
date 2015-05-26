@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -87,15 +86,42 @@ public class RulesActivity extends AppCompatActivity {
     }
 
     private void addRulesText() {
-        TextView rulesViewPre = (TextView) findViewById(R.id.actual_rules_pre);
-        TextView rulesViewPost = (TextView) findViewById(R.id.actual_rules_post);
         switch (language) {
             case ENGLISH:
-                rulesViewPre.setText(getResources().getString(R.string.rules_in_english_pre));
-                rulesViewPost.setText(getResources().getString(R.string.rules_in_english_post));
+                ((TextView) findViewById(R.id.actual_rules_pre))
+                        .setText(getResources().getString(R.string.rules_in_english_pre));
+                ((TextView) findViewById(R.id.actual_rules_post))
+                        .setText(getResources().getString(R.string.rules_in_english_post));
+                ((TextView) findViewById(R.id.common_0_right_pos))
+                        .setText(getResources().getString(R.string.common_0_right_pos_english));
+                ((TextView) findViewById(R.id.common_7_wrong_pos))
+                        .setText(getResources().getString(R.string.common_7_wrong_pos_english));
+                ((TextView) findViewById(R.id.no_digit_common_label_1))
+                        .setText(getResources().getString(R.string.no_digit_common_english));
+                ((TextView) findViewById(R.id.no_digit_common_label_2))
+                        .setText(getResources().getString(R.string.no_digit_common_english));
+                ((TextView) findViewById(R.id.no_digit_common_label_3))
+                        .setText(getResources().getString(R.string.no_digit_common_english));
+                ((TextView) findViewById(R.id.no_digit_common_label_4))
+                        .setText(getResources().getString(R.string.no_digit_common_english));
                 break;
             case HINDI:
-                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_hindi)));
+                ((TextView) findViewById(R.id.actual_rules_pre))
+                        .setText(getResources().getString(R.string.rules_in_hindi_pre));
+                ((TextView) findViewById(R.id.actual_rules_post))
+                        .setText(getResources().getString(R.string.rules_in_hindi_post));
+                ((TextView) findViewById(R.id.common_0_right_pos))
+                        .setText(getResources().getString(R.string.common_0_right_pos_hindi));
+                ((TextView) findViewById(R.id.common_7_wrong_pos))
+                        .setText(getResources().getString(R.string.common_7_wrong_pos_hindi));
+                ((TextView) findViewById(R.id.no_digit_common_label_1))
+                        .setText(getResources().getString(R.string.no_digit_common_hindi));
+                ((TextView) findViewById(R.id.no_digit_common_label_2))
+                        .setText(getResources().getString(R.string.no_digit_common_hindi));
+                ((TextView) findViewById(R.id.no_digit_common_label_3))
+                        .setText(getResources().getString(R.string.no_digit_common_hindi));
+                ((TextView) findViewById(R.id.no_digit_common_label_4))
+                        .setText(getResources().getString(R.string.no_digit_common_hindi));
                 break;
 //            case SPANISH:
 //                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));

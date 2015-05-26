@@ -34,23 +34,32 @@
     <string name="hindi">Hindi</string>
     <string name="spanish">Spanish</string>
     <string name="check_open_rules">Open rules page on app startup.</string>
+    <string name="play_game_text_in_rules">PLAY</string>
+    <string name="score_explanation_in_scores">Score is average time of fastest 50 games won.</string>
+    <string name="explanation">Explanation</string>
+    <string name="secret">Secret</string>
     <string name="rules_in_english_pre">
         Guess the secret number. All digits are unique. The count of Bulls and Cows is shown for each guess. \r\n \r\n
-        Lets play an example game. Secret number you have to guess: 07. \r\n
+        Lets play an example game. Secret number you have to guess: 07.
     </string>
     <string name="rules_in_english_post">
         Bulls: number of digits common in your guess and the secret which are at the right place. \r\n \r\n
         Cows: number of digits common in your guess and the secret which are at the wrong place.
     </string>
-    <string name="rules_in_hindi">मोबाइल एक नम्बर का चयन करेगा जिसके सारे अंक अलग है । अपने उद्देश्य अज्ञात नम्बर पता लगाने का है । \ r\n\ इसके लिए आपको एक अनुमान के साथ शुरू करना होगा और मोबाइल  Bulls और Cows की संख्या में जवाब देगा। \r\n Bulls : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक जो सही स्थिति में हैं । \r\nCows : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक और जो ग़लत स्थिति में हैं । \r\nउदहारण : मोबाइल का नम्बर है: 1620 और आपका अनुमान नम्बर है: 7124 तो \r\nBulls : 1. अंक : \'2\' दोनों नम्बर में आम है और एक ही स्थिति में है । \r\nCows : 1. अंक : \'1\' दोनों नम्बर में आम है और अलग स्थिति में है । \r\nआप अनुमान लगाते रहे जब तक सारे अंक सही ना हो जाए ।।</string>
 
-    <string name="play_game_text_in_rules">PLAY</string>
-    <string name="score_explanation_in_scores">Score is average time of fastest 50 games won.</string>
-    <string name="explanation">Explanation</string>
-    <string name="secret">Secret</string>
+    <string name="rules_in_hindi_pre">
+        गुप्त संख्या का अनुमान लगाना है जिसके सारे अंक अलग है । हर अनुमान के लिए Bulls और Cows कि संख्या दिखायी जायेगी। एक उदाहरण के खेल खेलते हैं। गुप्त संख्या जो पता लगाना है वोह \'07\' है
+    </string>
+    <string name="rules_in_hindi_post">
+        Bulls: गुप्त संख्या और अनुमान में आम अंक जो सही जगह पे है
+        Cows: गुप्त संख्या और अनुमान में आम अंक जो ग़लत जगह पे है
+    </string>
     <string name="no_digit_common_english">No Digit Common</string>
+    <string name="no_digit_common_hindi">कोई अंक आम नहीं</string>
     <string name="common_0_right_pos_english">\'0\' common. Right place</string>
     <string name="common_7_wrong_pos_english">\'7\' common. Wrong place</string>
+    <string name="common_0_right_pos_hindi">\'0\' आम. सही जगह</string>
+    <string name="common_7_wrong_pos_hindi">\'7\' आम. ग़लत जगह</string>
     <string name="action_share">Share App</string>
     <string name="share_app_string">Try \'Bulls and Cows\': https://play.google.com/store/apps/details?id=com.games.vishalanand23.bullsandcowsandroid</string>
     <string name="share_app_url">https://play.google.com/store/apps/details?id=com.games.vishalanand23.bullsandcowsandroid</string>

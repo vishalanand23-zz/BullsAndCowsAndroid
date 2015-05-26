@@ -87,6 +87,10 @@
                 android:id="@+id/actual_rules_pre"
                 style="@style/actual_rules_pre" />
 
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="10dp" />
+
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -146,7 +150,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/no_digit_common_english"
+                        android:id="@+id/no_digit_common_label_1"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -179,7 +183,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/no_digit_common_english"
+                        android:id="@+id/no_digit_common_label_2"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -212,7 +216,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/no_digit_common_english"
+                        android:id="@+id/no_digit_common_label_3"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -245,7 +249,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/common_7_wrong_pos_english"
+                        android:id="@+id/common_7_wrong_pos"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -278,7 +282,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/common_0_right_pos_english"
+                        android:id="@+id/common_0_right_pos"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -311,7 +315,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:text="@string/no_digit_common_english"
+                        android:id="@+id/no_digit_common_label_4"
                         style="@style/rules_text_values"
                         android:gravity="center" />
                 </TableRow>
@@ -350,6 +354,10 @@
                         android:gravity="center" />
                 </TableRow>
             </TableLayout>
+
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
