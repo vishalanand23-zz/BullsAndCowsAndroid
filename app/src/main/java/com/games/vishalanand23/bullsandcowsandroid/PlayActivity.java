@@ -22,6 +22,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.games.vishalanand23.bullsandcowsandroid.data.GameData;
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
@@ -81,11 +82,7 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_share) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_string));
-            startActivity(shareIntent);
+            startActivity(new ShareHandler(this).shareApp());
             return true;
         }
 
@@ -97,6 +94,7 @@ public class PlayActivity extends AppCompatActivity {
 //        new DbStorageHelper(this).createFile();
 //        new DbStorageHelper(this).sanitizeDb();
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_play);
         styleActionBar();
         if (new DbStorageHelper(this).checkRules()) {

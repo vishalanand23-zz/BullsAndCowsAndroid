@@ -47,11 +47,14 @@
     <string name="rules_in_spanish">SPANISH SPANISH SPANISH</string>
     <string name="play_game_text_in_rules">PLAY</string>
     <string name="score_explanation_in_scores">Score is average time of fastest 50 games won.</string>
-    <string name="explanation">Exaplanation</string>
+    <string name="explanation">Explanation</string>
     <string name="secret">Secret</string>
     <string name="no_digit_common_english">No Digit Common</string>
     <string name="common_0_right_pos_english">\'0\' common. Right place</string>
     <string name="common_7_wrong_pos_english">\'7\' common. Wrong place</string>
     <string name="action_share">Share App</string>
     <string name="share_app_string">Try \'Bulls and Cows\': https://play.google.com/store/apps/details?id=com.games.vishalanand23.bullsandcowsandroid</string>
+    <string name="share_app_url">https://play.google.com/store/apps/details?id=com.games.vishalanand23.bullsandcowsandroid</string>
+    <string name="share_developer_url">"https://play.google.com/store/apps/developer?id=vishalanand23"</string>
+    <string name="share_on_facebook">FB Share</string>
 </resources>

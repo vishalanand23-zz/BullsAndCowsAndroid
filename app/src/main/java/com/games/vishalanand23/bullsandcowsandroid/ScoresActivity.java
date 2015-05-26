@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.share.widget.ShareButton;
 import com.games.vishalanand23.bullsandcowsandroid.db.DbStorageHelper;
 
 public class ScoresActivity extends AppCompatActivity {
@@ -64,11 +65,7 @@ public class ScoresActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_share) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app_string));
-            startActivity(shareIntent);
+            startActivity(new ShareHandler(this).shareApp());
             return true;
         }
 
@@ -111,8 +108,9 @@ public class ScoresActivity extends AppCompatActivity {
         }
     }
 
-    private void setValues(int number) {
-        DbStorageHelper storageHelper = new DbStorageHelper(this);
+    private void setValues(final int number) {
+        final DbStorageHelper storageHelper = new DbStorageHelper(this);
+        final ShareHandler shareHandler = new ShareHandler(this);
         int gamesPlayed = storageHelper.numberOfGames(number);
         int gamesWon = storageHelper.numberOfWins(number);
         String fastestTimeString = storageHelper.fastestTime(number) < 0
@@ -125,6 +123,17 @@ public class ScoresActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.games_won_value)).setText(String.valueOf(gamesWon));
         ((TextView) findViewById(R.id.fastest_time_value)).setText(fastestTimeString);
         ((TextView) findViewById(R.id.scores_value)).setText(scoreString);
+        final ShareButton shareButton = (ShareButton) findViewById(R.id.fb_score_share_button);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareButton.setShareContent(shareHandler.shareScore(
+                        storageHelper.score(number),
+                        storageHelper.fastestTime(number),
+                        number
+                ));
+            }
+        });
     }
 
     private void initializePlayBackButton(Button button) {

@@ -179,18 +179,29 @@
             android:layout_width="fill_parent"
             android:layout_height="3dp" />
 
-        <Button
-            android:id="@+id/scores_button_in_play"
-            android:text="@string/scores_button_text"
-            android:layout_width="200dp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:textSize="22sp"
-            android:background="@drawable/submit_button_background"
-            style="@style/submit_button" />
+            android:orientation="horizontal"
+            style="@style/game_result_layout">
+
+            <Button
+                android:id="@+id/scores_button_in_play"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/scores_button_text"
+                style="@style/submit_button" />
+
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/fb_game_share_button"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.5"
+                android:textSize="22sp"
+                style="@style/submit_button" />
+        </LinearLayout>
 
     </LinearLayout>
 
