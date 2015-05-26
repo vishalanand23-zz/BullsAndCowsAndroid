@@ -26,4 +26,5 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
     compile 'com.mcxiaoke.volley:library:1.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.google.android.gms:play-services:7.3.0'
 }
