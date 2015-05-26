@@ -28,8 +28,8 @@ public class ShareHandler {
         ShareDialog shareDialog = new ShareDialog(activity);
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentTitle(numberOfDigits + " digit: Score=" + score / 1000f + " Fastest time=" + fastestTime / 1000f + " sec")
-                    .setContentDescription("Bulls and Cows Score ")
+                    .setContentTitle(numberOfDigits + " digit Score = " + score / 1000f + " Fastest time = " + fastestTime / 1000f + " sec")
+                    .setContentDescription("Bulls and Cows Score")
                     .setContentUrl(Uri.parse(activity.getResources().getString(R.string.share_developer_url)))
                     .build();
 
@@ -43,7 +43,7 @@ public class ShareHandler {
         ShareDialog shareDialog = new ShareDialog(activity);
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentTitle("Finished a game of " + numberOfDigits + " digits in " + rounds + " rounds and " + time / 1000f + " sec")
+                    .setContentTitle("Won a game of " + numberOfDigits + " digits in " + rounds + " rounds and " + time / 1000f + " sec")
                     .setContentDescription("Bulls and Cows Game")
                     .setContentUrl(Uri.parse(activity.getResources().getString(R.string.share_developer_url)))
                     .build();
