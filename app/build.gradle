@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.games.vishalanand23.bullsandcowsandroid"
-        minSdkVersion 19
-        targetSdkVersion 21
-        versionCode 13
-        versionName "3.9"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 14
+        versionName "4.0"
     }
     buildTypes {
         release {
