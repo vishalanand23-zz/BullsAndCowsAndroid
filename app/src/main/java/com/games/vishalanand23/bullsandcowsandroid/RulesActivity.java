@@ -81,7 +81,7 @@ public class RulesActivity extends AppCompatActivity {
         initializeLanguageButton((Button) findViewById(R.id.english), Language.ENGLISH);
         findViewById(R.id.english).setEnabled(false);
         initializeLanguageButton((Button) findViewById(R.id.hindi), Language.HINDI);
-        initializeLanguageButton((Button) findViewById(R.id.spanish), Language.SPANISH);
+//        initializeLanguageButton((Button) findViewById(R.id.spanish), Language.SPANISH);
         initializePlayBackButton();
         addRulesText();
     }
@@ -97,9 +97,9 @@ public class RulesActivity extends AppCompatActivity {
             case HINDI:
                 rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_hindi)));
                 break;
-            case SPANISH:
-                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));
-                break;
+//            case SPANISH:
+//                rulesViewPre.setText(Html.fromHtml(getResources().getString(R.string.rules_in_spanish)));
+//                break;
         }
     }
 
@@ -109,7 +109,7 @@ public class RulesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 findViewById(R.id.english).setEnabled(true);
                 findViewById(R.id.hindi).setEnabled(true);
-                findViewById(R.id.spanish).setEnabled(true);
+//                findViewById(R.id.spanish).setEnabled(true);
                 button.setEnabled(false);
                 language = l;
                 addRulesText();

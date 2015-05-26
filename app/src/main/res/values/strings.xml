@@ -44,7 +44,6 @@
     </string>
     <string name="rules_in_hindi">मोबाइल एक नम्बर का चयन करेगा जिसके सारे अंक अलग है । अपने उद्देश्य अज्ञात नम्बर पता लगाने का है । \ r\n\ इसके लिए आपको एक अनुमान के साथ शुरू करना होगा और मोबाइल  Bulls और Cows की संख्या में जवाब देगा। \r\n Bulls : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक जो सही स्थिति में हैं । \r\nCows : मोबाइल के द्वारा चुना नम्बर और आपके अनुमान में आम अंक और जो ग़लत स्थिति में हैं । \r\nउदहारण : मोबाइल का नम्बर है: 1620 और आपका अनुमान नम्बर है: 7124 तो \r\nBulls : 1. अंक : \'2\' दोनों नम्बर में आम है और एक ही स्थिति में है । \r\nCows : 1. अंक : \'1\' दोनों नम्बर में आम है और अलग स्थिति में है । \r\nआप अनुमान लगाते रहे जब तक सारे अंक सही ना हो जाए ।।</string>
 
-    <string name="rules_in_spanish">SPANISH SPANISH SPANISH</string>
     <string name="play_game_text_in_rules">PLAY</string>
     <string name="score_explanation_in_scores">Score is average time of fastest 50 games won.</string>
     <string name="explanation">Explanation</string>

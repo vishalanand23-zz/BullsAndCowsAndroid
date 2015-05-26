@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="@string/english"
             android:textAllCaps="false"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:background="@drawable/new_game_button_background"
             style="@style/new_game_button" />
 
@@ -47,19 +47,19 @@
             android:layout_height="wrap_content"
             android:text="@string/hindi"
             android:textAllCaps="false"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:background="@drawable/new_game_button_background"
             style="@style/new_game_button" />
 
-        <Button
-            android:id="@+id/spanish"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/spanish"
-            android:textAllCaps="false"
-            android:layout_weight="0.33"
-            android:background="@drawable/new_game_button_background"
-            style="@style/new_game_button" />
+        <!--<Button-->
+        <!--android:id="@+id/spanish"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/spanish"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:layout_weight="0.33"-->
+        <!--android:background="@drawable/new_game_button_background"-->
+        <!--style="@style/new_game_button" />-->
     </LinearLayout>
 
     <Space
