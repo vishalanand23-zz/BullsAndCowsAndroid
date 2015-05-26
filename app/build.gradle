@@ -8,8 +8,8 @@ android {
         applicationId "com.games.vishalanand23.bullsandcowsandroid"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 12
-        versionName "3.8"
+        versionCode 13
+        versionName "3.9"
     }
     buildTypes {
         release {
