@@ -187,7 +187,7 @@
 
             <Button
                 android:id="@+id/scores_button_in_play"
-                android:layout_weight="0.5"
+                android:layout_weight="0.6"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                 android:id="@+id/fb_game_share_button"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:textSize="22sp"
                 style="@style/submit_button" />
         </LinearLayout>
