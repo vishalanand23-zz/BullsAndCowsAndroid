@@ -181,7 +181,6 @@ public class PlayActivity extends AppCompatActivity {
         ScrollView roundTable = (ScrollView) findViewById(R.id.guess_table_scroll_view);
         TextView pauseLabel = (TextView) findViewById(R.id.pause_game_label);
         Button submitButton = (Button) findViewById(R.id.submit);
-        LinearLayout numberPickerLayout = (LinearLayout) findViewById(R.id.number_roller);
         LinearLayout newGameLayout = (LinearLayout) findViewById(R.id.new_game_label);
         LinearLayout beginGameLayout = (LinearLayout) findViewById(R.id.begin_game);
 
@@ -194,7 +193,6 @@ public class PlayActivity extends AppCompatActivity {
         } else {
             submitButton.setEnabled(false);
         }
-        numberPickerLayout.setVisibility(View.VISIBLE);
         newGameLayout.setVisibility(View.VISIBLE);
         beginGameLayout.setVisibility(View.VISIBLE);
 
@@ -206,7 +204,6 @@ public class PlayActivity extends AppCompatActivity {
         ScrollView roundTable = (ScrollView) findViewById(R.id.guess_table_scroll_view);
         TextView pauseLabel = (TextView) findViewById(R.id.pause_game_label);
         Button submitButton = (Button) findViewById(R.id.submit);
-        LinearLayout numberPickerLayout = (LinearLayout) findViewById(R.id.number_roller);
         LinearLayout newGameLayout = (LinearLayout) findViewById(R.id.new_game_label);
         LinearLayout beginGameLayout = (LinearLayout) findViewById(R.id.begin_game);
 
@@ -214,7 +211,6 @@ public class PlayActivity extends AppCompatActivity {
         pauseButton.setText(getResources().getString(R.string.unpause_button_text));
         roundTable.setVisibility(View.GONE);
         submitButton.setVisibility(View.INVISIBLE);
-        numberPickerLayout.setVisibility(View.INVISIBLE);
         newGameLayout.setVisibility(View.GONE);
         beginGameLayout.setVisibility(View.GONE);
 
