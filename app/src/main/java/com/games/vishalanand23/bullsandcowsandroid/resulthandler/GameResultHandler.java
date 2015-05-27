@@ -39,5 +39,6 @@ public class GameResultHandler {
             }
         });
         activity.findViewById(R.id.result_display).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.number_roller).setVisibility(View.GONE);
     }
 }

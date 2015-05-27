@@ -134,6 +134,7 @@ public class PlayActivity extends AppCompatActivity {
         initializeScoreButton();
         clearGuessTableLayout((TableLayout) findViewById(R.id.guess_display));
         findViewById(R.id.result_display).setVisibility(View.GONE);
+        findViewById(R.id.number_roller).setVisibility(View.VISIBLE);
         clearNumberPickerLayout((LinearLayout) findViewById(R.id.number_roller));
         switch (gameData.numberOfDigits()) {
             case 2:
