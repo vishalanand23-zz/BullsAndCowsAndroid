@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.games.vishalanand23.bullsandcowsandroid"
-        minSdkVersion 10
+        minSdkVersion 17
         targetSdkVersion 22
-        versionCode 16
-        versionName "4.2"
+        versionCode 17
+        versionName "4.3"
     }
     buildTypes {
         release {
