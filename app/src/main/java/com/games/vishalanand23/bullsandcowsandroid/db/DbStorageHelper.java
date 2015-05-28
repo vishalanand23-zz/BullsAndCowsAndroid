@@ -92,6 +92,7 @@ public class DbStorageHelper extends SQLiteOpenHelper {
             cursor.close();
             return fastestTime;
         } else {
+            cursor.close();
             return -1;
         }
     }
