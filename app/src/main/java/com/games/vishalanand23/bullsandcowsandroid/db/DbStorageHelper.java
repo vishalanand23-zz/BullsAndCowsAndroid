@@ -9,9 +9,6 @@ import android.util.Log;
 
 import com.games.vishalanand23.bullsandcowsandroid.data.PlayResult;
 
-import java.io.File;
-import java.io.FileWriter;
-
 public class DbStorageHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 4;
@@ -58,8 +55,6 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         Log.w(DbStorageHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-//        db.execSQL("DROP TABLE IF EXISTS " + PLAY_TABLE_NAME);
-//        db.execSQL("DROP TABLE IF EXISTS " + RULES_CHECKBOX_TABLE_NAME);
         onCreate(db);
     }
 
@@ -71,13 +66,16 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         values.put(NUMBER_OF_GUESSES, playResult.getNumberOfGuesses());
         values.put(WIN_GAME, playResult.getWinGame());
         values.put(TIME_IN_MILLIS, playResult.getTimeInMillis());
-        getWritableDatabase().insert(PLAY_TABLE_NAME, null, values);
+        SQLiteDatabase writableDatabase = getWritableDatabase();
+        writableDatabase.insert(PLAY_TABLE_NAME, null, values);
+        writableDatabase.close();
     }
 
     public int fastestTime(int numberOfDigits) {
         String[] projection = {TIME_IN_MILLIS};
         String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
-        Cursor cursor = getReadableDatabase().query(
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        Cursor cursor = readableDatabase.query(
                 PLAY_TABLE_NAME,
                 projection,
                 WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
@@ -90,9 +88,11 @@ public class DbStorageHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             int fastestTime = cursor.getInt(0);
             cursor.close();
+            readableDatabase.close();
             return fastestTime;
         } else {
             cursor.close();
+            readableDatabase.close();
             return -1;
         }
     }
@@ -103,14 +103,17 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                 + " = " + numberOfDigits + " order by " + TIME_IN_MILLIS
                 + " limit " + NUMBER_IN_SCORE + ") as t";
         String[] args = {};
-        Cursor cursor = getReadableDatabase().rawQuery(subQuery, args);
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        Cursor cursor = readableDatabase.rawQuery(subQuery, args);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int score = cursor.getInt(0);
             cursor.close();
+            readableDatabase.close();
             return score;
         } else {
             cursor.close();
+            readableDatabase.close();
             return -1;
         }
     }
@@ -118,7 +121,8 @@ public class DbStorageHelper extends SQLiteOpenHelper {
     public int numberOfGames(int numberOfDigits) {
         String[] projection = {ID};
         String[] whereArgs = {Integer.toString(numberOfDigits)};
-        Cursor cursor = getReadableDatabase().query(
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        Cursor cursor = readableDatabase.query(
                 PLAY_TABLE_NAME,
                 projection,
                 NUM_OF_DIGITS + " = ? ",
@@ -128,13 +132,15 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                 null);
         int number = cursor.getCount();
         cursor.close();
+        readableDatabase.close();
         return number;
     }
 
     public int numberOfWins(int numberOfDigits) {
         String[] projection = {ID};
         String[] whereArgs = {Integer.toString(1), Integer.toString(numberOfDigits)};
-        Cursor cursor = getReadableDatabase().query(
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        Cursor cursor = readableDatabase.query(
                 PLAY_TABLE_NAME,
                 projection,
                 WIN_GAME + " = ? AND " + NUM_OF_DIGITS + " = ? ",
@@ -144,12 +150,14 @@ public class DbStorageHelper extends SQLiteOpenHelper {
                 null);
         int number = cursor.getCount();
         cursor.close();
+        readableDatabase.close();
         return number;
     }
 
     public boolean checkRules() {
         String[] projection = {CHECKED};
-        Cursor cursor = getReadableDatabase().query(
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        Cursor cursor = readableDatabase.query(
                 RULES_CHECKBOX_TABLE_NAME,
                 projection,
                 null,
@@ -160,11 +168,13 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         if (cursor.getCount() == 0) {
             setRulesCheckedTable(true);
             cursor.close();
+            readableDatabase.close();
             return true;
         } else {
             cursor.moveToFirst();
             boolean ret = cursor.getInt(0) == 1;
             cursor.close();
+            readableDatabase.close();
             return ret;
         }
     }
@@ -174,54 +184,58 @@ public class DbStorageHelper extends SQLiteOpenHelper {
         int check = b ? 1 : 0;
         ContentValues values = new ContentValues();
         values.put(CHECKED, check);
-        getWritableDatabase().insert(RULES_CHECKBOX_TABLE_NAME, null, values);
+        SQLiteDatabase writableDatabase = getWritableDatabase();
+        writableDatabase.insert(RULES_CHECKBOX_TABLE_NAME, null, values);
+        writableDatabase.close();
     }
 
     private void cleanCheckRulesTable() {
         String where = ID + ">" + "0";
-        getWritableDatabase().delete(RULES_CHECKBOX_TABLE_NAME, where, null);
+        SQLiteDatabase writableDatabase = getWritableDatabase();
+        writableDatabase.delete(RULES_CHECKBOX_TABLE_NAME, where, null);
+        writableDatabase.close();
     }
 
-    public void sanitizeDb() {
-        ContentValues newValues = new ContentValues();
-        newValues.put(TIME_IN_MILLIS, 2147483647);
+//    public void sanitizeDb() {
+//        ContentValues newValues = new ContentValues();
+//        newValues.put(TIME_IN_MILLIS, 2147483647);
+//
+//        getWritableDatabase().update(PLAY_TABLE_NAME, newValues, "time_in_millis<0", null);
+//
+//        getWritableDatabase().delete(PLAY_TABLE_NAME, "length(playing_number)" + "<" + "4", null);
+//    }
 
-        getWritableDatabase().update(PLAY_TABLE_NAME, newValues, "time_in_millis<0", null);
-
-        getWritableDatabase().delete(PLAY_TABLE_NAME, "length(playing_number)" + "<" + "4", null);
-    }
-
-    public void createFile() {
-        Cursor cursor = getReadableDatabase().query(
-                PLAY_TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                ID,
-                null);
-
-        try {
-            String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-            String fileName = "abc2.csv";
-            String filePath = baseDir + File.separator + fileName;
-            File f = new File(filePath);
-            FileWriter mFileWriter = new FileWriter(filePath, true);
-            while (cursor.moveToNext()) {
-                String writeRow = cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
-                        + cursor.getInt(cursor.getColumnIndex(NUM_OF_DIGITS)) + ","
-                        + cursor.getInt(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
-                        + cursor.getInt(cursor.getColumnIndex(NUMBER_OF_GUESSES)) + ","
-                        + cursor.getInt(cursor.getColumnIndex(WIN_GAME)) + ","
-                        + cursor.getInt(cursor.getColumnIndex(TIME_IN_MILLIS));
-                mFileWriter.write(writeRow);
-                mFileWriter.write(System.getProperty("line.separator"));
-            }
-            mFileWriter.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        cursor.close();
-    }
+//    public void createFile() {
+//        Cursor cursor = getReadableDatabase().query(
+//                PLAY_TABLE_NAME,
+//                null,
+//                null,
+//                null,
+//                null,
+//                null,
+//                ID,
+//                null);
+//
+//        try {
+//            String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+//            String fileName = "abc2.csv";
+//            String filePath = baseDir + File.separator + fileName;
+//            File f = new File(filePath);
+//            FileWriter mFileWriter = new FileWriter(filePath, true);
+//            while (cursor.moveToNext()) {
+//                String writeRow = cursor.getString(cursor.getColumnIndex(DEVICE_ID)) + ","
+//                        + cursor.getInt(cursor.getColumnIndex(NUM_OF_DIGITS)) + ","
+//                        + cursor.getInt(cursor.getColumnIndex(PLAYING_NUMBER)) + ","
+//                        + cursor.getInt(cursor.getColumnIndex(NUMBER_OF_GUESSES)) + ","
+//                        + cursor.getInt(cursor.getColumnIndex(WIN_GAME)) + ","
+//                        + cursor.getInt(cursor.getColumnIndex(TIME_IN_MILLIS));
+//                mFileWriter.write(writeRow);
+//                mFileWriter.write(System.getProperty("line.separator"));
+//            }
+//            mFileWriter.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        cursor.close();
+//    }
 }
